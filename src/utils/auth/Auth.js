@@ -16,8 +16,8 @@ const Auth =
             })
                 .then(response => response.json())
                 .then(data => {
-                    sessionStorage.setItem('access-key-exp', data.exp);
-                    sessionStorage.setItem('access-key', data.key);
+                    sessionStorage.setItem('access-token', data.access_token);
+                    sessionStorage.setItem('refresh-token', data.refresh_token);
                 })
                 .catch((err) => console.log(err));
 
@@ -25,17 +25,15 @@ const Auth =
         },
 
         isAuthenticated() {
-            console.log("isAuthenticated call:" + ("access-key" in sessionStorage));
-            console.log("date-now: " + new Date());
-            console.log("date-exp: " + new Date(sessionStorage.getItem("access-key-exp")));
-            return "access-key" in sessionStorage;
+            console.log("isAuthenticated call:" + ("access-token" in sessionStorage));
+            return "access-token" in sessionStorage;
         },
 
         signout(callback) {
             //this.isAuthenticated = false
             setTimeout(callback, 100); // fake async
-            sessionStorage.removeItem('access-key');
-            sessionStorage.removeItem('access-key-exp');
+            sessionStorage.removeItem('access-token');
+            sessionStorage.removeItem('refresh-token');
             console.log('isAuthenticated false');
 
         },

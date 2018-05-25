@@ -6,8 +6,9 @@ import {
 } from 'react-router-dom';
 
 
-import './css/index.css';
-import './css/bootstrap.lumen.css';
+//import './css/index.css';
+//import './css/bootstrap.lumen.css';
+import './semantic/dist/semantic.min.css'
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 import PrivateRoute from './utils/auth/PrivateRoute';

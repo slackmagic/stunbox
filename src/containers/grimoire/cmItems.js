@@ -11,7 +11,7 @@ const TYPE_BY_ID = "/api/itemstore/type/";
 const ITEMS_BY_TYPE = "/api/itemstore/item/bytype/";
 const ITEMS_BY_SUPPORT = "/api/itemstore/item/bysupport/";
 const API_ACCESS_TOKEN = "1234567890-ABCDEFGH";
-const ID_ACCESS_TOKEN = sessionStorage.getItem('access-key');
+const ID_ACCESS_TOKEN = sessionStorage.getItem('access-token');
 
 class GrimoireItems extends React.Component {
 
