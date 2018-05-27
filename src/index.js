@@ -17,8 +17,8 @@ import registerServiceWorker from './registerServiceWorker';
 import Login from './containers/login/Login';
 import Users from './containers/usermgr/umApp';
 import UserDetail from './containers/usermgr/user/umDetail';
-import GrimoireDashboard from './containers/grimoire/cmDashboard';
-import GrimoireItems from './containers/grimoire/cmItems';
+import GrimoireDashboard from './containers/grimoire/grimDashboard';
+import GrimoireItems from './containers/grimoire/grimItems';
 import MainApp from './containers/main/main';
 
 

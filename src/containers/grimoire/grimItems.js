@@ -1,8 +1,9 @@
 import React from 'react';
-import Nav from "./cmNav";
-import Title from "./cmTitle";
-import SubHeader from "./cmHeader";
+import Nav from "./grimNav";
+import Title from "./grimTitle";
+import GrimHeader from "./grimHeader";
 import Footer from "../../components/footer/Footer";
+import { Icon, Header, Container, Segment, Card, Image, Grid } from 'semantic-ui-react'
 import ReactTable from "react-table";
 import 'react-table/react-table.css';
 
@@ -134,19 +135,14 @@ class GrimoireItems extends React.Component {
         if (this.state.isLoading) {
             return (
                 <div>
-                    <SubHeader />
-                    <div className="container body-content">
-                        <div className="col-2">
-                        </div>
-                        <div className="col-10">
-                            <br />
-                            <div>
-                                <h1>⏳...LOADING...⏳ </h1>
-                            </div>
-                            <hr />
-                            <Footer />
-                        </div>
-                    </div>
+                    <GrimHeader />
+                    <Container textAlign='center'>
+
+                        <h1>⏳...LOADING...⏳ </h1>
+                        <hr />
+                        <Footer />
+
+                    </Container>
                 </div>
 
             );
@@ -155,27 +151,31 @@ class GrimoireItems extends React.Component {
 
             return (
                 <div>
-                    <SubHeader />
-                    <div className="container body-content">
-
+                    <GrimHeader />
+                    <Container fluid>
                         <br />
-                        <Title type={this.state.type} />
-                        <Nav supports={this.state.supports} />
-
-                        <ReactTable
-                            data={this.state.items}
-                            filterable
-                            defaultFilterMethod={(filter, row) => String(row[filter.id]).toLowerCase().includes(filter.value.toLowerCase())}
-                            columns={columns}
-                            defaultSorted={[{ id: "reference.name" }]}
-                            defaultPageSize={25}
-                            className="-striped -highlight"
-                        />
-
+                        <Grid>
+                            <Grid.Column mobile={0} tablet={0} computer={1} />
+                            <Grid.Column mobile={2} tablet={2} computer={2}>
+                                <Nav supports={this.state.supports} />
+                            </Grid.Column>
+                            <Grid.Column mobile={14} tablet={12} computer={12}>
+                                <ReactTable
+                                    data={this.state.items}
+                                    filterable
+                                    defaultFilterMethod={(filter, row) => String(row[filter.id]).toLowerCase().includes(filter.value.toLowerCase())}
+                                    columns={columns}
+                                    defaultSorted={[{ id: "reference.name" }]}
+                                    defaultPageSize={25}
+                                    className="-striped -highlight"
+                                />
+                            </Grid.Column>
+                            <Grid.Column mobile={0} tablet={0} computer={1} />
+                        </Grid>
                         <hr />
                         <Footer />
 
-                    </div >
+                    </Container >
                 </div >
             );
         }
