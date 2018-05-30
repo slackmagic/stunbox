@@ -1,22 +1,26 @@
 import React from 'react';
 import { Menu, Input, Label } from 'semantic-ui-react'
 
-class CollMgrNav extends React.Component {
+class GrimNav extends React.Component {
 
-    state = { activeItem: 'inbox' }
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    state = { activeItem: 'all' }
+    handleItemClick = (e, { name }) => {
+        e.preventDefault();
+        this.setState({ activeItem: name })
+        this.props.onChange(name);
+    }
 
     render() {
         const { activeItem } = this.state;
 
         return (
 
-            <Menu vertical fluid stackable>
+            <Menu pointing vertical fluid stackable inverted>
                 <Menu.Item name='all' active={activeItem === 'all'} onClick={this.handleItemClick}>
                     <Label color='teal'>1</Label>Tous</Menu.Item>
                 {this.props.supports.map(support =>
                     <Menu.Item name={support.id} active={activeItem === support.id} onClick={this.handleItemClick}>
-                        <Label color='teal'>1</Label>{support.name}</Menu.Item>
+                        {support.name}</Menu.Item>
                 )}
 
             </Menu>
@@ -24,4 +28,4 @@ class CollMgrNav extends React.Component {
     }
 }
 
-export default CollMgrNav;
+export default GrimNav;

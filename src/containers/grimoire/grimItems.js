@@ -3,7 +3,7 @@ import Nav from "./grimNav";
 import Title from "./grimTitle";
 import GrimHeader from "./grimHeader";
 import Footer from "../../components/footer/Footer";
-import { Icon, Header, Container, Segment, Card, Image, Grid } from 'semantic-ui-react'
+import { Icon, Header, Container, Segment, Dimmer, Loader, Card, Image, Grid, Button } from 'semantic-ui-react'
 import ReactTable from "react-table";
 import 'react-table/react-table.css';
 
@@ -18,19 +18,27 @@ class GrimoireItems extends React.Component {
 
     state = {
         isLoading: true,
-        type: undefined,
         supports: [],
         items: [],
+        currentType: this.props.match.params.typeid,
         currentSupport: undefined,
     }
 
     componentDidMount() {
 
-        const state = this.state
+        this.refreshTypes();
+        this.refreshSupports();
 
+        //_Support selection
+        //-------------------------------------------------------
+        this.setState({
+            currentSupport: this.props.match.params.supportid
+        }, this.refreshItems());
+    }
+
+    refreshTypes() {
         //_Load TYPE
         //-------------------------------------------------------
-
         fetch(`${TYPE_BY_ID}${this.props.match.params.typeid}`,
             {
                 method: "GET",
@@ -45,7 +53,9 @@ class GrimoireItems extends React.Component {
             .then(response => response.json())
             .then(data => this.setState({ type: data }))
             .catch(error => this.setState({ error }));
+    }
 
+    refreshSupports() {
         //_Load SUPPORTS
         //-------------------------------------------------------
         fetch(`${SUPPORTS_LIST}${this.props.match.params.typeid}`,
@@ -63,20 +73,21 @@ class GrimoireItems extends React.Component {
             .then(data => this.setState({ supports: data }))
             .then(supports => console.log(this.state))
             .catch(error => this.setState({ error }));
+    }
 
-        //_Support selection
-        //-------------------------------------------------------
-        state['currentSupport'] = this.props.match.params.supportid;
+    refreshItems() {
 
+        console.log("refreshItemsOnType: " + this.state.currentType);
+        console.log("refreshItemsOnSupport: " + this.state.currentSupport);
 
         //_Load ITEMS
         //-------------------------------------------------------
         var strURL = undefined;
         if (this.state.currentSupport === undefined) {
-            strURL = ITEMS_BY_TYPE + this.props.match.params.typeid;
+            strURL = ITEMS_BY_TYPE + this.state.currentType;
         }
         else {
-            strURL = ITEMS_BY_SUPPORT + this.props.match.params.supportid;
+            strURL = ITEMS_BY_SUPPORT + this.state.currentSupport;
         }
 
         fetch(`${strURL}`,
@@ -95,10 +106,18 @@ class GrimoireItems extends React.Component {
             .then(supports => console.log(this.state))
             .catch(error => this.setState({ error }));
 
-
     }
 
+    navChange = (id) => {
+        console.log("navRefresh: " + id);
+        if (id === "all") {
+            id = undefined;
+        }
+        this.setState({ isLoading: true, currentSupport: id }, this.refreshItems);
+    }
     render() {
+
+        const { active } = this.state
 
         const columns = [{
             Header: 'Name',
@@ -109,10 +128,11 @@ class GrimoireItems extends React.Component {
             accessor: 'support_id',
             Cell: row => (
                 <div style={{ textAlign: 'center' }} >
-                    <span class="badge badge-info">{row.value}</span>
+                    <span className="badge badge-info">{row.value}</span>
                 </div >
             )
         },
+        /*
         {
             Header: 'Created on',
             accessor: 'created_on',
@@ -121,45 +141,32 @@ class GrimoireItems extends React.Component {
                     {new Date(row.value).toLocaleDateString("fr-FR")}
                 </div >
             )
-        },
+        },*/
         {
             Header: 'Actions',
             accessor: 'uuid',
             Cell: row => (
                 <div style={{ textAlign: 'center' }} >
-                    <a className="btn btn-primary btn-sm" href={row.value} role="button">Edit</a>
+                    <Button color='blue' href={row.value}>Modifier</Button>
                 </div >
             )
         }]
 
-        if (this.state.isLoading) {
-            return (
-                <div>
-                    <GrimHeader />
-                    <Container textAlign='center'>
-
-                        <h1>⏳...LOADING...⏳ </h1>
-                        <hr />
-                        <Footer />
-
-                    </Container>
-                </div>
-
-            );
-        }
-        else {
-
-            return (
-                <div>
-                    <GrimHeader />
-                    <Container fluid>
-                        <br />
-                        <Grid>
-                            <Grid.Column mobile={0} tablet={0} computer={1} />
-                            <Grid.Column mobile={2} tablet={2} computer={2}>
-                                <Nav supports={this.state.supports} />
-                            </Grid.Column>
-                            <Grid.Column mobile={14} tablet={12} computer={12}>
+        return (
+            <div>
+                <GrimHeader />
+                <Container fluid>
+                    <br />
+                    <Grid>
+                        <Grid.Column mobile={1} tablet={1} computer={1} />
+                        <Grid.Column mobile={2} tablet={2} computer={2}>
+                            <Nav supports={this.state.supports} onChange={this.navChange} />
+                        </Grid.Column>
+                        <Grid.Column mobile={12} tablet={12} computer={12}>
+                            <Dimmer.Dimmable as={Segment} dimmed={this.state.isLoading}>
+                                <Dimmer onClickOutside={this.handleHide} active={this.state.isLoading} inverted>
+                                    <Loader size='huge' inverted>Chargement</Loader>
+                                </Dimmer>
                                 <ReactTable
                                     data={this.state.items}
                                     filterable
@@ -169,17 +176,18 @@ class GrimoireItems extends React.Component {
                                     defaultPageSize={25}
                                     className="-striped -highlight"
                                 />
-                            </Grid.Column>
-                            <Grid.Column mobile={0} tablet={0} computer={1} />
-                        </Grid>
-                        <hr />
-                        <Footer />
+                            </Dimmer.Dimmable>
+                        </Grid.Column>
+                        <Grid.Column mobile={1} tablet={1} computer={1} />
+                    </Grid>
+                    <hr />
+                    <Footer />
 
-                    </Container >
-                </div >
-            );
-        }
+                </Container >
+            </div >
+        );
     }
+
 }
 
 export default GrimoireItems;

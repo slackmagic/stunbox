@@ -11,7 +11,7 @@ class GrimoireHeader extends React.Component {
     const { activeItem } = this.state
     return (
 
-      <Menu color='violet' size='large' fluid stackable>
+      <Menu color='violet' size='large' fluid stackable inverted>
         <Menu.Item header><span role="img" aria-label="Stunbox"></span>&nbsp;STUNBOX.Grimoire</Menu.Item>
         <Menu.Item name='📈 Tableau de bord' onClick={this.handleItemClick} />
         <Menu.Item name='🎮 Jeux Vidéo' onClick={this.handleItemClick} />
