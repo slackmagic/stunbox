@@ -154,31 +154,31 @@ class GrimoireItems extends React.Component {
 
         return (
             <div>
-                <GrimHeader />
                 <Container fluid>
-                    <br />
+                    <GrimHeader />
+
                     <Grid>
-                        <Grid.Column mobile={1} tablet={1} computer={1} />
-                        <Grid.Column mobile={2} tablet={2} computer={2}>
-                            <Nav supports={this.state.supports} onChange={this.navChange} />
-                        </Grid.Column>
-                        <Grid.Column mobile={12} tablet={12} computer={12}>
-                            <Dimmer.Dimmable as={Segment} dimmed={this.state.isLoading}>
-                                <Dimmer onClickOutside={this.handleHide} active={this.state.isLoading} inverted>
-                                    <Loader size='huge' inverted>Chargement</Loader>
-                                </Dimmer>
-                                <ReactTable
-                                    data={this.state.items}
-                                    filterable
-                                    defaultFilterMethod={(filter, row) => String(row[filter.id]).toLowerCase().includes(filter.value.toLowerCase())}
-                                    columns={columns}
-                                    defaultSorted={[{ id: "reference.name" }]}
-                                    defaultPageSize={25}
-                                    className="-striped -highlight"
-                                />
-                            </Dimmer.Dimmable>
-                        </Grid.Column>
-                        <Grid.Column mobile={1} tablet={1} computer={1} />
+                        <Grid.Row>
+                            <Grid.Column computer={1} only='computer' />
+                            <Grid.Column mobile={16} tablet={16} computer={14}>
+                                <Nav supports={this.state.supports} onChange={this.navChange} />
+                                <Dimmer.Dimmable as={Segment} dimmed={this.state.isLoading}>
+                                    <Dimmer onClickOutside={this.handleHide} active={this.state.isLoading} inverted>
+                                        <Loader size='huge' inverted>Chargement</Loader>
+                                    </Dimmer>
+                                    <ReactTable
+                                        data={this.state.items}
+                                        filterable
+                                        defaultFilterMethod={(filter, row) => String(row[filter.id]).toLowerCase().includes(filter.value.toLowerCase())}
+                                        columns={columns}
+                                        defaultSorted={[{ id: "reference.name" }]}
+                                        defaultPageSize={25}
+                                        className="-striped -highlight"
+                                    />
+                                </Dimmer.Dimmable>
+                            </Grid.Column>
+                            <Grid.Column computer={1} only='computer' />
+                        </Grid.Row>
                     </Grid>
                     <hr />
                     <Footer />
