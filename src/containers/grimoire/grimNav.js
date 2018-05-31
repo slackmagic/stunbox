@@ -17,7 +17,7 @@ class GrimNav extends React.Component {
 
             <Menu pointing fluid stackable>
                 <Menu.Item>
-                    <Input action={{ icon: 'search' }} placeholder='Recherche par titre...' />
+                    <Input size='large' action={{ icon: 'search' }} placeholder='Recherche par titre...' />
                 </Menu.Item>
                 <Menu.Menu position='right'>
                     <Dropdown item text='Filtrer par support'>
