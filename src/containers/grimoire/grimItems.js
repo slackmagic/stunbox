@@ -2,6 +2,8 @@ import React from 'react';
 import Nav from "./grimNav";
 import Title from "./grimTitle";
 import GrimHeader from "./grimHeader";
+import GrimCardList from "./grimCardList";
+import GrimTableList from "./grimTableList";
 import Footer from "../../components/footer/Footer";
 import { Icon, Header, Container, Segment, Dimmer, Loader, Card, Image, Grid, Button } from 'semantic-ui-react'
 import ReactTable from "react-table";
@@ -115,73 +117,31 @@ class GrimoireItems extends React.Component {
         }
         this.setState({ isLoading: true, currentSupport: id }, this.refreshItems);
     }
+
     render() {
 
         const { active } = this.state
-
-        const columns = [{
-            Header: 'Name',
-            accessor: 'reference.name'
-        },
-        {
-            Header: 'Support',
-            accessor: 'support_id',
-            Cell: row => (
-                <div style={{ textAlign: 'center' }} >
-                    <span className="badge badge-info">{row.value}</span>
-                </div >
-            )
-        },
-        /*
-        {
-            Header: 'Created on',
-            accessor: 'created_on',
-            Cell: row => (
-                <div style={{ textAlign: 'center' }} >
-                    {new Date(row.value).toLocaleDateString("fr-FR")}
-                </div >
-            )
-        },*/
-        {
-            Header: 'Actions',
-            accessor: 'uuid',
-            Cell: row => (
-                <div style={{ textAlign: 'center' }} >
-                    <Button color='blue' href={row.value}>Modifier</Button>
-                </div >
-            )
-        }]
 
         return (
             <div>
                 <Container fluid>
                     <GrimHeader />
-
                     <Grid>
                         <Grid.Row>
-                            <Grid.Column computer={1} only='computer' />
-                            <Grid.Column mobile={16} tablet={16} computer={14}>
+                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
+                            <Grid.Column mobile={16} tablet={14} computer={14}>
                                 <Nav supports={this.state.supports} onChange={this.navChange} />
                                 <Dimmer.Dimmable as={Segment} dimmed={this.state.isLoading}>
                                     <Dimmer onClickOutside={this.handleHide} active={this.state.isLoading} inverted>
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
-                                    <ReactTable
-                                        data={this.state.items}
-                                        filterable
-                                        defaultFilterMethod={(filter, row) => String(row[filter.id]).toLowerCase().includes(filter.value.toLowerCase())}
-                                        columns={columns}
-                                        defaultSorted={[{ id: "reference.name" }]}
-                                        defaultPageSize={25}
-                                        className="-striped -highlight"
-                                    />
+                                    <br />
+                                    <GrimCardList items={this.state.items} />
                                 </Dimmer.Dimmable>
                             </Grid.Column>
-                            <Grid.Column computer={1} only='computer' />
+                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
                         </Grid.Row>
                     </Grid>
-                    <hr />
-                    <Footer />
 
                 </Container >
             </div >
