@@ -7,7 +7,8 @@ import GrimTableList from "./grimTableList";
 import Footer from "../../components/footer/Footer";
 import { Icon, Header, Container, Segment, Dimmer, Loader, Card, Image, Grid, Button } from 'semantic-ui-react'
 import ReactTable from "react-table";
-import 'react-table/react-table.css';
+import "react-table/react-table.css";
+import "../../css/background.css";
 
 const SUPPORTS_LIST = "/api/itemstore/support/bytype/";
 const TYPE_BY_ID = "/api/itemstore/type/";
@@ -126,6 +127,16 @@ class GrimoireItems extends React.Component {
             <div>
                 <Container fluid>
                     <GrimHeader />
+                    <Grid fluid>
+                        <Grid.Row className='background4 heightbg'>
+                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
+                            <Grid.Column mobile={16} tablet={14} computer={14}>
+                                <Header as='h2' inverted>GRIMOIRE</Header>
+                                <p>Jeux vidéo</p>
+                            </Grid.Column>
+                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
+                        </Grid.Row>
+                    </Grid>
                     <Grid>
                         <Grid.Row>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
@@ -142,7 +153,6 @@ class GrimoireItems extends React.Component {
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
                         </Grid.Row>
                     </Grid>
-
                 </Container >
             </div >
         );
