@@ -147,6 +147,7 @@ class GrimoireItems extends React.Component {
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
                                     <br />
+                                    <GrimTableList items={this.state.items} />
                                     <GrimCardList items={this.state.items} />
                                 </Dimmer.Dimmable>
                             </Grid.Column>

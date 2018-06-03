@@ -14,7 +14,7 @@ class GrimoireTableList extends React.Component {
         },
         {
             Header: 'Support',
-            accessor: 'support_id',
+            accessor: 'shortname',
             Cell: row => (
                 <div style={{ textAlign: 'center' }} >
                     <span className="badge badge-info">{row.value}</span>
