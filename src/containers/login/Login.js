@@ -1,8 +1,7 @@
 import React from 'react';
 import Auth from '../../utils/auth/Auth';
 import AppHeader from "../../components/header/Header";
-import AppFooter from "../../components/footer/Footer";
-import { Grid, Form, Segment, Input, Checkbox, Button, Header, Icon } from 'semantic-ui-react'
+import { Grid, Form, Segment, Input, Button, Header, Icon } from 'semantic-ui-react'
 
 import '../../css/signin.css';
 

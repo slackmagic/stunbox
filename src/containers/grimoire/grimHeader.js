@@ -27,7 +27,7 @@ class GrimoireHeader extends React.Component {
           </Menu>
         </Grid.Row>
         <Grid.Row columns={16} only='mobile' fluid>
-          <Menu color='blue' inverted stackable fluid>
+          <Menu inverted stackable fluid>
             <Dropdown item text='&nbsp;STUNBOX.Grimoire'>
               <Dropdown.Menu>
                 <Menu.Item name='📈 Tableau de bord' onClick={this.handleItemClick} />

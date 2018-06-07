@@ -1,8 +1,7 @@
 import React from 'react';
 import GrimHeader from './grimHeader';
-import AppHeader from "../../components/header/Header";
 import AppFooter from "../../components/footer/Footer";
-import { Icon, Header, Container, Segment, Card, Image } from 'semantic-ui-react'
+import { Icon, Header, Container, Segment, Card } from 'semantic-ui-react'
 
 class GrimoireDashboard extends React.Component {
 
