@@ -1,64 +1,82 @@
 import React from 'react';
 import GrimHeader from './grimHeader';
+import GrimCardList from "./collection/grimCollCardList";
 import AppFooter from "../../components/footer/Footer";
-import { Icon, Header, Container, Segment, Card } from 'semantic-ui-react'
+import { Grid, Header, Container, Segment, Dimmer, Loader } from 'semantic-ui-react'
+
+const COLLECTIONS_LIST = "/api/itemstore/collection/all";
+const API_ACCESS_TOKEN = "1234567890-ABCDEFGH";
+const ID_ACCESS_TOKEN = sessionStorage.getItem('access-token');
 
 class GrimoireDashboard extends React.Component {
 
     state = {
-        type: undefined,
-        ref: undefined
+        isLoading: true,
+        collections: [],
     }
 
+
     componentDidMount() {
-        const state = this.state
-        state['type'] = this.props.match.params.typeid;
-        state['ref'] = -1;
-        this.setState(state);
+        this.refreshCollection();
     }
+
+    refreshCollection() {
+        //_Load TYPE
+        //-------------------------------------------------------
+        fetch(`${COLLECTIONS_LIST}`,
+            {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'x-api-key': API_ACCESS_TOKEN,
+                    'Authorization': 'Bearer ' + ID_ACCESS_TOKEN
+                }
+            }
+        )
+            .then(response => response.json())
+            .then(data => this.setState({ collections: data, isLoading: false }))
+            .catch(error => this.setState({ error }));
+    }
+
 
     render() {
         return (
             <div>
-                <GrimHeader />
-                <br /><br />
-                <Container textAlign='center'>
-                    <Segment Raised>
-                        <Header as='h1' icon>
-                            <Icon name='book' color='violet' />GRIMOIRE
-                            <Header.Subheader>Gestion de collections</Header.Subheader>
-                        </Header>
-                    </Segment>
-                    <Card.Group itemsPerRow={"3"}>
-                        <Card>
-                            <Header as='h1'>
-                                <span role="img" aria-label="">🎮</span>
-                            </Header>
-                            <Card.Content>
-                                <Card.Header>JEUX VIDEO</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Header as='h1'>
-                                <span role="img" aria-label="">📚</span>
-                            </Header>
-                            <Card.Content>
-                                <Card.Header>LIVRES</Card.Header>
-                            </Card.Content>
-                        </Card>
-                        <Card>
-                            <Header as='h1'>
-                                <span role="img" aria-label="">💿</span>
-                            </Header>
-                            <Card.Content>
-                                <Card.Header>FILMS</Card.Header>
-                            </Card.Content>
-                        </Card>
+                <Container fluid>
+                    <GrimHeader />
+                    <Grid fluid>
+                        <Grid.Row className='background4 heightbg'>
+                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
+                            <Grid.Column mobile={16} tablet={14} computer={14}>
+                                <Header as='h2' inverted>Mes collections</Header>
+                            </Grid.Column>
+                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
+                        </Grid.Row>
+                    </Grid>
 
-                    </Card.Group>
-                    <AppFooter />
+                    <Grid fluid>
+                        <Grid.Row>
+                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
+                            <Grid.Column mobile={16} tablet={14} computer={14}>
+                                <Dimmer.Dimmable as={Segment} dimmed={this.state.isLoading}>
+                                    <Dimmer onClickOutside={this.handleHide} active={this.state.isLoading} inverted>
+                                        <Loader size='huge' inverted>Chargement</Loader>
+                                    </Dimmer>
+                                    <br />
+                                    <GrimCardList collections={this.state.collections} />
+
+                                </Dimmer.Dimmable>
+                            </Grid.Column>
+                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
+                        </Grid.Row>
+                    </Grid>
+
+
                 </Container>
-            </div>
+
+
+            </div >
         );
     }
 }

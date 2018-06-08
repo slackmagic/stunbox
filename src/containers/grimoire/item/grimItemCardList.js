@@ -24,12 +24,10 @@ class GrimoireCardList extends React.Component {
             <Card.Group itemsPerRow={4} stackable>
                 {
                     myData.map(item =>
-                        <Card href='#card-example-link-card' color={options[item.support_id]}>
-                            <Card.Content>
+                        <Card href={"./GAME/" + item.uuid} color={options[item.support_id]}>
+                            < Card.Content >
                                 <Card.Header>{item.reference.name}</Card.Header>
-                                <Card.Meta>
-                                    {item.uuid}
-                                </Card.Meta>
+                                <Card.Meta>{item.created_on}</Card.Meta>
                                 <Card.Description>
 
                                 </Card.Description>

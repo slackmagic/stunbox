@@ -1,14 +1,10 @@
 import React from 'react';
-import Nav from "./grimNav";
-import Title from "./grimTitle";
-import GrimHeader from "./grimHeader";
-import GrimCardList from "./grimCardList";
-import GrimTableList from "./grimTableList";
-import Footer from "../../components/footer/Footer";
-import { Icon, Header, Container, Segment, Dimmer, Loader, Card, Image, Grid, Button } from 'semantic-ui-react'
-import ReactTable from "react-table";
+import Nav from "../grimNav";
+import GrimHeader from "../grimHeader";
+import GrimCardList from "./grimItemCardList";
+import { Header, Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react'
 import "react-table/react-table.css";
-import "../../css/background.css";
+import "../../../css/background.css";
 
 const SUPPORTS_LIST = "/api/itemstore/support/bytype/";
 const TYPE_BY_ID = "/api/itemstore/type/";
@@ -23,8 +19,9 @@ class GrimoireItems extends React.Component {
         isLoading: true,
         supports: [],
         items: [],
+        currentCollection: this.props.match.params.collid,
         currentType: this.props.match.params.typeid,
-        currentSupport: undefined,
+        currentSupport: this.props.match.params.supportid,
     }
 
     componentDidMount() {
@@ -147,7 +144,6 @@ class GrimoireItems extends React.Component {
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
                                     <br />
-                                    <GrimTableList items={this.state.items} />
                                     <GrimCardList items={this.state.items} />
                                 </Dimmer.Dimmable>
                             </Grid.Column>
