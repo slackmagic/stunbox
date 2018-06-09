@@ -18,7 +18,8 @@ import Login from './containers/login/Login';
 import Users from './containers/usermgr/umApp';
 import UserDetail from './containers/usermgr/user/umDetail';
 import GrimoireDashboard from './containers/grimoire/grimDashboard';
-import GrimoireItems from './containers/grimoire/item/grimItems';
+import GrimoireItems from './containers/grimoire/itemlist/grimItems';
+import GrimoireItem from './containers/grimoire/item/grimItem';
 import MainApp from './containers/main/main';
 
 
@@ -32,6 +33,7 @@ ReactDOM.render(
       <PrivateRoute exact path='/grimoire/:typeid' component={GrimoireItems} />
       <PrivateRoute exact path='/grimoire/:typeid/bycollection/:collid' component={GrimoireItems} />
       <PrivateRoute exact path='/grimoire/:typeid/bysupport/:supportid' component={GrimoireItems} />
+      <PrivateRoute exact path='/grimoire/item/:itemid' component={GrimoireItem} />
       <PrivateRoute exact path='/usermgr' component={Users} />
       <PrivateRoute path='/usermgr/:uuid' component={UserDetail} />
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import GrimHeader from './grimHeader';
+import GrimHeader from './components/grimHeader';
 import GrimCardList from "./collection/grimCollCardList";
 import Itemstore from "../../utils/helix/helixItemstore";
 import { Grid, Header, Container, Segment, Dimmer, Loader } from 'semantic-ui-react'
@@ -30,6 +30,8 @@ class GrimoireDashboard extends React.Component {
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
                         </Grid.Row>
                     </Grid>
+
+
 
                     <Grid>
                         <Grid.Row>

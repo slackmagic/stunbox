@@ -26,14 +26,8 @@ const Auth =
             if (this.isTokenExpired(sessionStorage.getItem('access-token'))) {
                 this.signout();
                 return false;
-            }
-            else {
-                return true;
-            }
-        }
-        else {
-            return false;
-        }
+            } else { return true; }
+        } else { return false; }
     },
 
     isTokenExpired(token) {
@@ -41,13 +35,8 @@ const Auth =
             const decoded = decode(token);
             if (decoded.exp < Date.now() / 1000) { // Checking if token is expired. N
                 return true;
-            }
-            else
-                return false;
-        }
-        catch (err) {
-            return false;
-        }
+            } else return false;
+        } catch (err) { return false; }
     },
 
     signout(callback) {
@@ -57,5 +46,4 @@ const Auth =
         sessionStorage.removeItem('refresh-exp');
     },
 }
-
 export default Auth;

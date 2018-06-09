@@ -1,6 +1,6 @@
 import React from 'react';
-import Nav from "../grimNav";
-import GrimHeader from "../grimHeader";
+import Nav from "./grimNav";
+import GrimHeader from "../components/grimHeader";
 import GrimCardList from "./grimItemCardList";
 import { Header, Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react';
 import Itemstore from "../../../utils/helix/helixItemstore";
