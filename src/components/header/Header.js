@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Button, Dropdown } from 'semantic-ui-react'
 
-const bcolor = 'gray';
+const bcolor = 'grey';
 const mcolor = 'violet';
 
 class Header extends React.Component {

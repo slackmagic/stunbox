@@ -1,6 +1,16 @@
+import Userstore from '../helix/helixUserstore';
+
 const Auth =
 {
     authenticate(login, password, callback) {
+
+        Userstore.login(login, password)
+            .then(data => {
+                console.log(data);
+                sessionStorage.setItem('access-token', data.access_token);
+                sessionStorage.setItem('refresh-token', data.refresh_token);
+            })
+        /*
         const URL = "/api/userstore/user/login";
         fetch(URL, {
             method: 'POST',
@@ -20,7 +30,7 @@ const Auth =
                 sessionStorage.setItem('refresh-token', data.refresh_token);
             })
             .catch((err) => console.log(err));
-
+*/
         setTimeout(callback, 500); // fake async
     },
 

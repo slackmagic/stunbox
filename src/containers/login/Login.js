@@ -12,8 +12,8 @@ import {
 class Login extends React.Component {
 
   state = {
-    username: undefined,
-    password: undefined
+    username: 'slackmagic',
+    password: 'slayer2005'
   }
 
   login = () => {

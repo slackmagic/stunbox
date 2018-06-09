@@ -26,7 +26,7 @@ class GrimoireCardList extends React.Component {
                             </Card.Content>
                             <Card.Content extra>
 
-                                <Label color='gray' size='tiny' horizontal basic>{collection.type_id}</Label>
+                                <Label color='grey' size='tiny' horizontal basic>{collection.type_id}</Label>
                             </Card.Content>
                         </Card>)
                 }

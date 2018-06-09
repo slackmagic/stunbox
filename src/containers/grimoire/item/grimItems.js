@@ -2,16 +2,11 @@ import React from 'react';
 import Nav from "../grimNav";
 import GrimHeader from "../grimHeader";
 import GrimCardList from "./grimItemCardList";
-import { Header, Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react'
+import { Header, Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react';
+import Itemstore from "../../../utils/helix/helixItemstore";
+
 import "react-table/react-table.css";
 import "../../../css/background.css";
-
-const SUPPORTS_LIST = "/api/itemstore/support/bytype/";
-const TYPE_BY_ID = "/api/itemstore/type/";
-const ITEMS_BY_TYPE = "/api/itemstore/item/bytype/";
-const ITEMS_BY_SUPPORT = "/api/itemstore/item/bysupport/";
-const API_ACCESS_TOKEN = "1234567890-ABCDEFGH";
-const ID_ACCESS_TOKEN = sessionStorage.getItem('access-token');
 
 class GrimoireItems extends React.Component {
 
@@ -25,87 +20,25 @@ class GrimoireItems extends React.Component {
     }
 
     componentDidMount() {
+        Itemstore.supportsByType(this.props.match.params.typeid)
+            .then(data => this.setState({ supports: data }));
 
-        this.refreshTypes();
-        this.refreshSupports();
-
-        //_Support selection
-        //-------------------------------------------------------
         this.setState({
             currentSupport: this.props.match.params.supportid
         }, this.refreshItems());
-    }
 
-    refreshTypes() {
-        //_Load TYPE
-        //-------------------------------------------------------
-        fetch(`${TYPE_BY_ID}${this.props.match.params.typeid}`,
-            {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'x-api-key': API_ACCESS_TOKEN,
-                    'Authorization': 'Bearer ' + ID_ACCESS_TOKEN
-                }
-            }
-        )
-            .then(response => response.json())
-            .then(data => this.setState({ type: data }))
-            .catch(error => this.setState({ error }));
-    }
-
-    refreshSupports() {
-        //_Load SUPPORTS
-        //-------------------------------------------------------
-        fetch(`${SUPPORTS_LIST}${this.props.match.params.typeid}`,
-            {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'x-api-key': API_ACCESS_TOKEN,
-                    'Authorization': 'Bearer ' + ID_ACCESS_TOKEN
-                }
-            }
-        )
-            .then(response => response.json())
-            .then(data => this.setState({ supports: data }))
-            .then(supports => console.log(this.state))
-            .catch(error => this.setState({ error }));
     }
 
     refreshItems() {
-
-        console.log("refreshItemsOnType: " + this.state.currentType);
-        console.log("refreshItemsOnSupport: " + this.state.currentSupport);
-
-        //_Load ITEMS
-        //-------------------------------------------------------
         var strURL = undefined;
         if (this.state.currentSupport === undefined) {
-            strURL = ITEMS_BY_TYPE + this.state.currentType;
+            Itemstore.itemsByType(this.props.match.params.typeid)
+                .then(data => this.setState({ items: data, isLoading: false }));
         }
         else {
-            strURL = ITEMS_BY_SUPPORT + this.state.currentSupport;
+            Itemstore.itemsBySupport(this.state.currentSupport)
+                .then(data => this.setState({ items: data, isLoading: false }));
         }
-
-        fetch(`${strURL}`,
-            {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'x-api-key': API_ACCESS_TOKEN,
-                    'Authorization': 'Bearer ' + ID_ACCESS_TOKEN
-                }
-            }
-        )
-            .then(response => response.json())
-            .then(data => this.setState({ items: data, isLoading: false }))
-            .then(supports => console.log(this.state))
-            .catch(error => this.setState({ error }));
-
     }
 
     navChange = (id) => {

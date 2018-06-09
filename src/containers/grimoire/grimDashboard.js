@@ -1,12 +1,8 @@
 import React from 'react';
 import GrimHeader from './grimHeader';
 import GrimCardList from "./collection/grimCollCardList";
-import AppFooter from "../../components/footer/Footer";
+import Itemstore from "../../utils/helix/helixItemstore";
 import { Grid, Header, Container, Segment, Dimmer, Loader } from 'semantic-ui-react'
-
-const COLLECTIONS_LIST = "/api/itemstore/collection/all";
-const API_ACCESS_TOKEN = "1234567890-ABCDEFGH";
-const ID_ACCESS_TOKEN = sessionStorage.getItem('access-token');
 
 class GrimoireDashboard extends React.Component {
 
@@ -15,30 +11,10 @@ class GrimoireDashboard extends React.Component {
         collections: [],
     }
 
-
     componentDidMount() {
-        this.refreshCollection();
+        Itemstore.collectionsList()
+            .then(data => this.setState({ collections: data, isLoading: false }));
     }
-
-    refreshCollection() {
-        //_Load TYPE
-        //-------------------------------------------------------
-        fetch(`${COLLECTIONS_LIST}`,
-            {
-                method: "GET",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'x-api-key': API_ACCESS_TOKEN,
-                    'Authorization': 'Bearer ' + ID_ACCESS_TOKEN
-                }
-            }
-        )
-            .then(response => response.json())
-            .then(data => this.setState({ collections: data, isLoading: false }))
-            .catch(error => this.setState({ error }));
-    }
-
 
     render() {
         return (
