@@ -9,7 +9,7 @@ class Main extends React.Component {
             <div>
                 <AppHeader />
                 <Container textAlign='center'>
-                    <Segment Raised>
+                    <Segment raised>
                         <Header as='h1' icon>
                             <Icon name='cube' color='blue' />STUNBOX
                     <Header.Subheader>Home applications & more.</Header.Subheader>

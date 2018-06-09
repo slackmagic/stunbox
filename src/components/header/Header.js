@@ -11,8 +11,6 @@ class Header extends React.Component {
 
   render() {
 
-    const { activeItem } = this.state
-
     return (
       <Menu color={bcolor} size='large' fluid stackable>
         <Menu.Item header><span role="img" aria-label="Stunbox">📦</span>&nbsp;STUNBOX</Menu.Item>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Button, Dropdown, Input, Label, Grid, Sidebar, Segment, Header } from 'semantic-ui-react'
+import { Menu, Button, Dropdown, Grid } from 'semantic-ui-react'
 
 class GrimoireHeader extends React.Component {
 
@@ -7,12 +7,10 @@ class GrimoireHeader extends React.Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   render() {
 
-    const { activeItem } = this.state
-
     return (
 
-      <Grid fluid>
-        <Grid.Row columns={16} only='computer tablet' fluid>
+      <Grid fluid="true">
+        <Grid.Row columns={16} only='computer tablet' fluid="true">
           <Menu color='blue' fluid stackable inverted>
             <Menu.Item header><span role="img" aria-label="Stunbox"></span>&nbsp;STUNBOX.Grimoire</Menu.Item>
             <Menu.Item name='📈 Tableau de bord' onClick={this.handleItemClick} />
@@ -26,7 +24,7 @@ class GrimoireHeader extends React.Component {
             </Menu.Menu>
           </Menu>
         </Grid.Row>
-        <Grid.Row columns={16} only='mobile' fluid>
+        <Grid.Row columns={16} only='mobile' fluid="true">
           <Menu inverted stackable fluid>
             <Dropdown item text='&nbsp;STUNBOX.Grimoire'>
               <Dropdown.Menu>

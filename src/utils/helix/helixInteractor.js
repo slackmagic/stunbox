@@ -1,8 +1,8 @@
 const API_ACCESS_TOKEN = "1234567890-ABCDEFGH";
 const ID_ACCESS_TOKEN = sessionStorage.getItem('access-token');
-const ID_REFRESH_TOKEN = sessionStorage.getItem('access-token');
+//const ID_REFRESH_TOKEN = sessionStorage.getItem('refresh-token');
 
-const HelixGeneric = {
+const HelixInteractor = {
 
     get(url, callback) {
         return fetch(url,
@@ -78,4 +78,4 @@ const HelixGeneric = {
     }
 }
 
-export default HelixGeneric;
+export default HelixInteractor;

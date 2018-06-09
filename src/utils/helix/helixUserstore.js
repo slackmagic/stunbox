@@ -1,10 +1,10 @@
-import HelixGeneric from './helixGeneric';
+import HelixInteractor from './helixInteractor';
 const LOGIN = "/api/userstore/user/login";
 
 const HelixUserstore = {
 
     login(login, password, callback) {
-        return HelixGeneric.post(LOGIN, JSON.stringify({
+        return HelixInteractor.post(LOGIN, JSON.stringify({
             login: login,
             password: password
         }));

@@ -29,35 +29,37 @@ class GrimoireItems extends React.Component {
 
     }
 
-    refreshItems() {
-        var strURL = undefined;
-        if (this.state.currentSupport === undefined) {
+    refreshItems(id) {
+
+        if (this.props.match.params.collid === undefined) {
             Itemstore.itemsByType(this.props.match.params.typeid)
-                .then(data => this.setState({ items: data, isLoading: false }));
+                .then(data => this.setState({ items: this.filterItems(data), isLoading: false }));
         }
         else {
-            Itemstore.itemsBySupport(this.state.currentSupport)
-                .then(data => this.setState({ items: data, isLoading: false }));
+            Itemstore.itemsByCollection(this.props.match.params.collid)
+                .then(data => this.setState({ items: this.filterItems(data), isLoading: false }));
         }
+    }
+
+    filterItems(data) {
+        return data.filter(item => (this.state.currentSupport === undefined) || (item.support_id === this.state.currentSupport));
     }
 
     navChange = (id) => {
-        console.log("navRefresh: " + id);
+
         if (id === "all") {
             id = undefined;
         }
-        this.setState({ isLoading: true, currentSupport: id }, this.refreshItems);
+        this.setState({ isLoading: true, currentSupport: id }, this.refreshItems(id));
     }
 
     render() {
-
-        const { active } = this.state
 
         return (
             <div>
                 <Container fluid>
                     <GrimHeader />
-                    <Grid fluid>
+                    <Grid fluid="true">
                         <Grid.Row className='background4 heightbg'>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
                             <Grid.Column mobile={16} tablet={14} computer={14}>

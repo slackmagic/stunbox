@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Card, Label } from 'semantic-ui-react'
-import ReactTable from "react-table";
+import { Card, Label } from 'semantic-ui-react'
 import 'react-table/react-table.css';
 
 class GrimoireCardList extends React.Component {
@@ -17,14 +16,11 @@ class GrimoireCardList extends React.Component {
             gamePS3: 'teal',
         };
 
-
-        console.log(myData);
-
         return (
             <Card.Group itemsPerRow={4} stackable>
                 {
                     myData.map(item =>
-                        <Card href={"./GAME/" + item.uuid} color={options[item.support_id]}>
+                        <Card href={"./GAME/" + item.uuid} color={options[item.support_id]} key={item.id}>
                             < Card.Content >
                                 <Card.Header>{item.reference.name}</Card.Header>
                                 <Card.Meta>{item.created_on}</Card.Meta>

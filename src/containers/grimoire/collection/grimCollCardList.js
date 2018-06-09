@@ -16,7 +16,7 @@ class GrimoireCardList extends React.Component {
             <Card.Group itemsPerRow={4} stackable>
                 {
                     ascData.map(collection =>
-                        <Card href={collection.type_id + "/" + collection.uuid}>
+                        <Card href={"./" + collection.type_id + "/bycollection/" + collection.uuid} key={collection.id}>
                             < Card.Content >
                                 <Card.Header>{collection.name}</Card.Header>
                                 <Card.Meta>{Math.floor(Math.random() * 100) + " objet(s)."}</Card.Meta>

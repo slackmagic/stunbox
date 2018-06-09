@@ -21,7 +21,7 @@ class GrimoireDashboard extends React.Component {
             <div>
                 <Container fluid>
                     <GrimHeader />
-                    <Grid fluid>
+                    <Grid>
                         <Grid.Row className='background4 heightbg'>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
                             <Grid.Column mobile={16} tablet={14} computer={14}>
@@ -31,7 +31,7 @@ class GrimoireDashboard extends React.Component {
                         </Grid.Row>
                     </Grid>
 
-                    <Grid fluid>
+                    <Grid>
                         <Grid.Row>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
                             <Grid.Column mobile={16} tablet={14} computer={14}>
@@ -47,8 +47,6 @@ class GrimoireDashboard extends React.Component {
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
                         </Grid.Row>
                     </Grid>
-
-
                 </Container>
 
 
