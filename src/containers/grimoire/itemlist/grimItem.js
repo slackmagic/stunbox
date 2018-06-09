@@ -1,6 +1,7 @@
 import React from 'react';
+import GrimNav from '../components/grimNav';
 import GrimHeader from "../components/grimHeader";
-import { Header, Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import Itemstore from "../../../utils/helix/helixItemstore";
 
 import "react-table/react-table.css";
@@ -24,7 +25,11 @@ class GrimoireItem extends React.Component {
 
         return (
             <div>
-                {this.props.match.params.itemid}
+                <Container fluid>
+                    <GrimNav />
+                    <GrimHeader />
+                    {this.props.match.params.itemid}
+                </Container>
             </div >
         );
     }

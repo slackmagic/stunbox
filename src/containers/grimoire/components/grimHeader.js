@@ -1,47 +1,22 @@
 import React from 'react';
-import { Menu, Button, Dropdown, Grid } from 'semantic-ui-react'
+import { Header, Grid } from 'semantic-ui-react';
+import "../../../css/background.css";
 
 class GrimoireHeader extends React.Component {
-
-  state = {}
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-  render() {
-
-    return (
-
-      <Grid fluid="true">
-        <Grid.Row columns={16} only='computer tablet' fluid="true">
-          <Menu color='blue' fluid stackable inverted>
-            <Menu.Item header><span role="img" aria-label="Stunbox"></span>&nbsp;STUNBOX.Grimoire</Menu.Item>
-            <Menu.Item name='📈 Tableau de bord' onClick={this.handleItemClick} />
-            <Menu.Item name='🎮 Jeux Vidéo' onClick={this.handleItemClick} />
-            <Menu.Item name='💿 Films' onClick={this.handleItemClick} />
-            <Menu.Item name='📚 Livres' onClick={this.handleItemClick} />
-            <Menu.Item name='🎲 Jeux de société' onClick={this.handleItemClick} />
-            <Menu.Item name='📦 Divers' onClick={this.handleItemClick} />
-            <Menu.Menu position='right'>
-              <Menu.Item href='login'><Button color='violet'>Se déconnecter</Button></Menu.Item>
-            </Menu.Menu>
-          </Menu>
-        </Grid.Row>
-        <Grid.Row columns={16} only='mobile' fluid="true">
-          <Menu inverted stackable fluid>
-            <Dropdown item text='&nbsp;STUNBOX.Grimoire'>
-              <Dropdown.Menu>
-                <Menu.Item name='📈 Tableau de bord' onClick={this.handleItemClick} />
-                <Menu.Item name='🎮 Jeux Vidéo' onClick={this.handleItemClick} />
-                <Menu.Item name='💿 Films' onClick={this.handleItemClick} />
-                <Menu.Item name='📚 Livres' onClick={this.handleItemClick} />
-                <Menu.Item name='🎲 Jeux de société' onClick={this.handleItemClick} />
-                <Menu.Item name='📦 Divers' onClick={this.handleItemClick} />
-                <Menu.Item href='login'><Button color='red'>Se déconnecter</Button></Menu.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Menu>
-        </Grid.Row>
-      </Grid >
-    );
-  }
+    render() {
+        return (
+            <Grid fluid="true">
+                <Grid.Row className='background4 heightbg'>
+                    <Grid.Column computer={1} tablet={1} only='computer tablet' />
+                    <Grid.Column mobile={16} tablet={14} computer={14}>
+                        <Header as='h2' inverted>GRIMOIRE</Header>
+                        <p>Jeux vidéo</p>
+                    </Grid.Column>
+                    <Grid.Column computer={1} tablet={1} only='computer tablet' />
+                </Grid.Row>
+            </Grid>
+        );
+    }
 }
 
 export default GrimoireHeader;

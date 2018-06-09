@@ -2,8 +2,7 @@ import React from 'react';
 import { Card, Label } from 'semantic-ui-react'
 import 'react-table/react-table.css';
 
-class GrimoireCardList extends React.Component {
-
+class GrimoireItemListCard extends React.Component {
 
     render() {
         const myData = [].concat(this.props.items)
@@ -41,4 +40,4 @@ class GrimoireCardList extends React.Component {
     }
 }
 
-export default GrimoireCardList;
+export default GrimoireItemListCard;

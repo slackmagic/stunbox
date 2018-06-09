@@ -1,14 +1,14 @@
 import React from 'react';
-import Nav from "./grimNav";
+import GrimBar from "./grimBar";
+import GrimNav from "../components/grimNav";
 import GrimHeader from "../components/grimHeader";
-import GrimCardList from "./grimItemCardList";
-import { Header, Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react';
+import GrimCardList from "./grimItemListCards";
+import { Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react';
 import Itemstore from "../../../utils/helix/helixItemstore";
 
 import "react-table/react-table.css";
-import "../../../css/background.css";
 
-class GrimoireItems extends React.Component {
+class GrimoireItemList extends React.Component {
 
     state = {
         isLoading: true,
@@ -46,10 +46,7 @@ class GrimoireItems extends React.Component {
     }
 
     navChange = (id) => {
-
-        if (id === "all") {
-            id = undefined;
-        }
+        if (id === "all") id = undefined;
         this.setState({ isLoading: true, currentSupport: id }, this.refreshItems(id));
     }
 
@@ -58,22 +55,13 @@ class GrimoireItems extends React.Component {
         return (
             <div>
                 <Container fluid>
+                    <GrimNav />
                     <GrimHeader />
-                    <Grid fluid="true">
-                        <Grid.Row className='background4 heightbg'>
-                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
-                            <Grid.Column mobile={16} tablet={14} computer={14}>
-                                <Header as='h2' inverted>GRIMOIRE</Header>
-                                <p>Jeux vidéo</p>
-                            </Grid.Column>
-                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
-                        </Grid.Row>
-                    </Grid>
                     <Grid>
                         <Grid.Row>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
                             <Grid.Column mobile={16} tablet={14} computer={14}>
-                                <Nav supports={this.state.supports} onChange={this.navChange} />
+                                <GrimBar supports={this.state.supports} onChange={this.navChange} />
                                 <Dimmer.Dimmable as={Segment} dimmed={this.state.isLoading}>
                                     <Dimmer onClickOutside={this.handleHide} active={this.state.isLoading} inverted>
                                         <Loader size='huge' inverted>Chargement</Loader>
@@ -92,4 +80,4 @@ class GrimoireItems extends React.Component {
 
 }
 
-export default GrimoireItems;
+export default GrimoireItemList;

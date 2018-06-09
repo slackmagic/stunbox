@@ -6,6 +6,7 @@ const ITEMS_BY_TYPE = "/api/itemstore/item/bytype/";
 const ITEMS_BY_SUPPORT = "/api/itemstore/item/bysupport/";
 const ITEMS_BY_COLLECTION = "/api/itemstore/item/bycollection/";
 const COLLECTIONS_LIST = "/api/itemstore/collection/all";
+const COLLECTIONS_BY_UUID = "/api/itemstore/collection/";
 
 const HelixItemstore = {
 
@@ -31,6 +32,10 @@ const HelixItemstore = {
 
     collectionsList(support, callback) {
         return HelixInteractor.getWithAuth(COLLECTIONS_LIST);
+    },
+
+    collectionByUuid(uuid, callback) {
+        return HelixInteractor.getWithAuth(COLLECTIONS_BY_UUID + uuid);
     },
 }
 

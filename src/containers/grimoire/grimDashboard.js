@@ -1,8 +1,9 @@
 import React from 'react';
-import GrimHeader from './components/grimHeader';
-import GrimCardList from "./collection/grimCollCardList";
+import GrimNav from './components/grimNav';
+import GrimHeader from "./components/grimHeader";
+import GrimCardList from "./collection/grimCollList";
 import Itemstore from "../../utils/helix/helixItemstore";
-import { Grid, Header, Container, Segment, Dimmer, Loader } from 'semantic-ui-react'
+import { Grid, Container, Segment, Dimmer, Loader } from 'semantic-ui-react'
 
 class GrimoireDashboard extends React.Component {
 
@@ -20,19 +21,8 @@ class GrimoireDashboard extends React.Component {
         return (
             <div>
                 <Container fluid>
+                    <GrimNav />
                     <GrimHeader />
-                    <Grid>
-                        <Grid.Row className='background4 heightbg'>
-                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
-                            <Grid.Column mobile={16} tablet={14} computer={14}>
-                                <Header as='h2' inverted>Mes collections</Header>
-                            </Grid.Column>
-                            <Grid.Column computer={1} tablet={1} only='computer tablet' />
-                        </Grid.Row>
-                    </Grid>
-
-
-
                     <Grid>
                         <Grid.Row>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />

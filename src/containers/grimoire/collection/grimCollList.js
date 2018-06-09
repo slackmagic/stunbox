@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, Label } from 'semantic-ui-react'
+import { Card, Label, Button } from 'semantic-ui-react'
 import 'react-table/react-table.css';
 
-class GrimoireCardList extends React.Component {
+class GrimoireCollectionList extends React.Component {
 
 
     render() {
@@ -21,12 +21,11 @@ class GrimoireCardList extends React.Component {
                                 <Card.Header>{collection.name}</Card.Header>
                                 <Card.Meta>{Math.floor(Math.random() * 100) + " objet(s)."}</Card.Meta>
                                 <Card.Description>
-
+                                    <Label color='grey' size='tiny' horizontal basic>{collection.type_id}</Label>
                                 </Card.Description>
                             </Card.Content>
                             <Card.Content extra>
-
-                                <Label color='grey' size='tiny' horizontal basic>{collection.type_id}</Label>
+                                <Button color='gray' href={"./collection/" + collection.uuid}>Modifier</Button>
                             </Card.Content>
                         </Card>)
                 }
@@ -35,4 +34,4 @@ class GrimoireCardList extends React.Component {
     }
 }
 
-export default GrimoireCardList;
+export default GrimoireCollectionList;
