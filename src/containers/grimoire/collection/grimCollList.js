@@ -25,7 +25,7 @@ class GrimoireCollectionList extends React.Component {
                                 </Card.Description>
                             </Card.Content>
                             <Card.Content extra>
-                                <Button color='gray' href={"./collection/" + collection.uuid}>Modifier</Button>
+                                <Button color='grey' href={"./collection/" + collection.uuid}>Modifier</Button>
                             </Card.Content>
                         </Card>)
                 }

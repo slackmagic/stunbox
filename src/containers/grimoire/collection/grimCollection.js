@@ -3,6 +3,7 @@ import GrimNav from '../components/grimNav';
 import GrimHeader from "../components/grimHeader";
 import { Container, Loader, Segment, Dimmer, Form, Grid } from 'semantic-ui-react'
 import Itemstore from "../../../utils/helix/helixItemstore";
+import Formatter from "../../../utils/helix/helixFormatter";
 import 'react-table/react-table.css';
 
 class GrimoireCollection extends React.Component {
@@ -11,21 +12,28 @@ class GrimoireCollection extends React.Component {
         isLoading: true,
         currentID: this.props.match.params.collid,
         collection: {},
+        typeList: [],
     }
 
     componentDidMount() {
         Itemstore.collectionByUuid(this.props.match.params.collid)
-            .then(data => this.setState({ collection: data, isLoading: false }));
+            .then(data => this.setState({ collection: data }));
+        Itemstore.typeList()
+            .then(data => this.setState({ typeList: Formatter.typeToDropdown(data), isLoading: false }));
     }
-
-    save = () => {
-        console.log(this.state);
-    };
 
     onSubmit = (e) => {
         e.preventDefault();
-        alert("Name change: " + this.state.collection.name);
-        this.save();
+    }
+
+    onChange = (e, data) => {
+        e.preventDefault();
+
+        const collToUpdate = this.state.collection;
+        collToUpdate[data.name] = data.value;
+        this.setState({ collection: collToUpdate });
+
+        console.log(this.state);
     }
 
     render() {
@@ -44,13 +52,16 @@ class GrimoireCollection extends React.Component {
                                     </Dimmer>
                                     <Form>
                                         <Form.Group widths='equal'>
-                                            <Form.Input fluid label='Nom' placeholder='Nom' value={this.state.collection.name || ''} required />
+                                            <Form.Input name='name' label='Nom' placeholder='Nom' value={this.state.collection.name || ''} onChange={this.onChange} required />
                                         </Form.Group>
                                         <Form.Group widths='equal'>
-                                            <Form.Input fluid label='Couleur' placeholder='Couleur' value={this.state.collection.color || ''} />
+                                            <Form.Input name='color' label='Couleur' placeholder='Couleur' value={this.state.collection.color || ''} onChange={this.onChange} />
+                                        </Form.Group>
+                                        <Form.Group widths='equal'>
+                                            <Form.Select name='type_id' options={this.state.typeList} fluid label='Type' placeholder='Choisissez un type' value={this.state.collection.type_id || ''} onChange={this.onChange} />
                                         </Form.Group>
                                     </Form>
-                                    <Form.Button type='submit' onClick={this.onSubmit} >Modifier</Form.Button>
+                                    <Form.Button type='submit' onClick={this.onSubmit}>Modifier</Form.Button>
                                 </Dimmer.Dimmable>
                             </Grid.Column>
                             <Grid.Column computer={3} tablet={3} only='computer tablet' />

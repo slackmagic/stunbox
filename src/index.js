@@ -11,10 +11,10 @@ import {
 import './semantic/dist/semantic.min.css'
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
-import PrivateRoute from './utils/auth/PrivateRoute';
+import PrivateRoute from './utils/auth/privateRoute';
 import registerServiceWorker from './registerServiceWorker';
 
-import Login from './containers/login/Login';
+import Login from './containers/login/login';
 import Users from './containers/usermgr/umApp';
 import UserDetail from './containers/usermgr/user/umDetail';
 import GrimoireDashboard from './containers/grimoire/grimDashboard';

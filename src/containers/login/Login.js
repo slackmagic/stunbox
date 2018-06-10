@@ -1,5 +1,5 @@
 import React from 'react';
-import Auth from '../../utils/auth/Auth';
+import Auth from '../../utils//auth/auth';
 import AppHeader from "../../components/header/Header";
 import { Grid, Form, Segment, Input, Button, Header, Icon } from 'semantic-ui-react'
 

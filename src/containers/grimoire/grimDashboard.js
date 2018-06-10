@@ -13,7 +13,7 @@ class GrimoireDashboard extends React.Component {
     }
 
     componentDidMount() {
-        Itemstore.collectionsList()
+        Itemstore.collectionList()
             .then(data => this.setState({ collections: data, isLoading: false }));
     }
 

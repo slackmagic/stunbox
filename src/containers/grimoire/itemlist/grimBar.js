@@ -4,6 +4,7 @@ import { Menu, Input, Label, Dropdown } from 'semantic-ui-react'
 class GrimNav extends React.Component {
 
     state = { activeItem: 'all', activeName: 'Tous' }
+
     handleItemClick = (e, { name, displayname }) => {
         e.preventDefault();
         this.setState({ activeItem: name })
@@ -11,13 +12,11 @@ class GrimNav extends React.Component {
         this.props.onChange(name);
     }
 
-
     onNameChange = (e) => {
         e.preventDefault();
         this.setState({ namefilter: e.target.value });
         console.log(this.state);
     }
-
 
     render() {
         const { activeItem } = this.state;
