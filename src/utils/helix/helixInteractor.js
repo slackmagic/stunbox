@@ -75,6 +75,45 @@ const HelixInteractor = {
             .then(response => response.json())
             .then(data => { return data; })
             .catch(error => console.log(error));
+    },
+
+    put(url, json, callback) {
+
+        console.log(url);
+        console.log(json);
+        return fetch(url,
+            {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': API_ACCESS_TOKEN
+                },
+                body: json
+            }
+        )
+            .then(response => response.json())
+            .then(data => { return data; })
+            .catch(error => console.log(error));
+    },
+
+    putWithAuth(url, json, callback) {
+
+        console.log(url);
+        console.log(json);
+        return fetch(url,
+            {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': API_ACCESS_TOKEN,
+                    'Authorization': 'Bearer ' + ID_ACCESS_TOKEN
+                },
+                body: json
+            }
+        )
+            .then(response => response.json())
+            .then(data => { return data; })
+            .catch(error => console.log(error));
     }
 }
 

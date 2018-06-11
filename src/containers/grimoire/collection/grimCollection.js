@@ -11,19 +11,29 @@ class GrimoireCollection extends React.Component {
     state = {
         isLoading: true,
         currentID: this.props.match.params.collid,
-        collection: {},
+        collection: { id: -1 },
         typeList: [],
     }
 
     componentDidMount() {
-        Itemstore.collectionByUuid(this.props.match.params.collid)
-            .then(data => this.setState({ collection: data }));
+        if (this.state.currentID.toLowerCase() !== "new") {
+            Itemstore.collectionByUuid(this.props.match.params.collid)
+                .then(data => this.setState({ collection: data }));
+        }
         Itemstore.typeList()
             .then(data => this.setState({ typeList: Formatter.typeToDropdown(data), isLoading: false }));
     }
 
     onSubmit = (e) => {
         e.preventDefault();
+        if (this.state.currentID.toLowerCase() === "new") {
+            Itemstore.newCollection(this.state.collection)
+                .then(data => this.setState({ collection: data }));
+        }
+        else {
+            Itemstore.updateCollection(this.state.collection)
+                .then(data => this.setState({ collection: data }));
+        }
     }
 
     onChange = (e, data) => {
@@ -58,7 +68,7 @@ class GrimoireCollection extends React.Component {
                                             <Form.Input name='color' label='Couleur' placeholder='Couleur' value={this.state.collection.color || ''} onChange={this.onChange} />
                                         </Form.Group>
                                         <Form.Group widths='equal'>
-                                            <Form.Select name='type_id' options={this.state.typeList} fluid label='Type' placeholder='Choisissez un type' value={this.state.collection.type_id || ''} onChange={this.onChange} />
+                                            <Form.Select disabled={this.state.collection.uuid !== undefined} name='type_id' options={this.state.typeList} fluid label='Type' placeholder='Choisissez un type' value={this.state.collection.type_id || ''} onChange={this.onChange} required />
                                         </Form.Group>
                                     </Form>
                                     <Form.Button type='submit' onClick={this.onSubmit}>Modifier</Form.Button>
