@@ -1,5 +1,6 @@
 import HelixInteractor from './helixInteractor';
 const LOGIN = "/api/userstore/user/login";
+const USER_LIST = "/api/userstore/user/all";
 
 const HelixUserstore = {
 
@@ -8,6 +9,10 @@ const HelixUserstore = {
             login: login,
             password: password
         }));
+    },
+
+    userList(callback) {
+        return HelixInteractor.getWithAuth(USER_LIST);
     },
 }
 
