@@ -13,6 +13,10 @@ const HelixFormatter = {
         );
     },
 
+    typeToHashmap(list) {
+        return list.reduce((map, obj) => { map[obj.id] = obj.name; return map; }, {});
+    },
+
     userToDropdown(list) {
         return list.map(
             obj => {

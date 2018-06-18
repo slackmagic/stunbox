@@ -1,16 +1,14 @@
 import React from 'react';
-import { Card, Button, List } from 'semantic-ui-react'
+import { Card, Button, List, Icon } from 'semantic-ui-react'
 import 'react-table/react-table.css';
 
 class GrimoireCollectionList extends React.Component {
 
-
     render() {
+        console.log(this.props.typeList);
+
         const ascData = [].concat(this.props.collections)
             .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-
-        console.log(ascData);
-        console.log(this.props.locmation);
 
         return (
             <Card.Group itemsPerRow={4} stackable>
@@ -18,11 +16,11 @@ class GrimoireCollectionList extends React.Component {
                     ascData.map(collection =>
                         <Card key={collection.id}>
                             < Card.Content >
-                                <Card.Header href={"./collection/" + collection.uuid}>
+                                <Card.Header href={"./collection/read/" + collection.uuid}>
                                     {collection.name}&nbsp;
                                 </Card.Header>
                                 <Card.Meta>
-                                    {collection.type_id}
+                                    {this.props.typeList[collection.type_id]}
                                 </Card.Meta>
                                 <Card.Description>
                                     <List>
@@ -47,6 +45,20 @@ class GrimoireCollectionList extends React.Component {
                             </Card.Content>
                         </Card>)
                 }
+
+                <Card href={"./collection/new/"}>
+                    <Card.Content>
+                        <Card.Header>
+                            Nouvelle collection
+                        </Card.Header>
+                        <Card.Description textAlign='center'>
+                            <Icon.Group size='huge'>
+                                <Icon name='archive' color='grey' />
+                                <Icon corner name='add' color='grey' />
+                            </Icon.Group>
+                        </Card.Description>
+                    </Card.Content>
+                </Card>
             </Card.Group >
         );
     }

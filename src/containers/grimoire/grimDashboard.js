@@ -3,6 +3,7 @@ import GrimNav from './components/grimNav';
 import GrimHeader from "./components/grimHeader";
 import GrimCardList from "./collection/grimCollList";
 import Itemstore from "../../utils/helix/helixItemstore";
+import Formatter from "../../utils/helix/helixFormatter";
 import { Grid, Container, Segment, Dimmer, Loader } from 'semantic-ui-react'
 
 class GrimoireDashboard extends React.Component {
@@ -10,14 +11,26 @@ class GrimoireDashboard extends React.Component {
     state = {
         isLoading: true,
         collections: [],
+        typeList: [],
     }
 
     componentDidMount() {
         Itemstore.collectionList()
-            .then(data => this.setState({ collections: data, isLoading: false }));
+            .then(data => this.setState({ collections: data }));
+        Itemstore.typeList()
+            .then(data => this.setState({ typeList: Formatter.typeToHashmap(data), isLoading: false }));
     }
 
     render() {
+        console.log(this.state.typeList);
+
+        var map = {};
+
+        map["key1"] = "one";
+        map["key2"] = "two";
+        map["key3"] = "three";
+        console.log(map);
+
         return (
             <div>
                 <Container fluid>
@@ -32,7 +45,7 @@ class GrimoireDashboard extends React.Component {
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
                                     <br />
-                                    <GrimCardList collections={this.state.collections} />
+                                    <GrimCardList collections={this.state.collections} typeList={this.state.typeList} />
 
                                 </Dimmer.Dimmable>
                             </Grid.Column>

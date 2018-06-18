@@ -54,11 +54,6 @@ class GrimoireCollection extends React.Component {
 
     }
 
-    onOwnersChange = (e, data) => {
-        e.preventDefault();
-        this.setState({ owners: data.value });
-    }
-
     render() {
         return (
             <div>
@@ -98,7 +93,6 @@ class GrimoireCollection extends React.Component {
                                             )
                                         }
 
-
                                         <Form.Group widths='equal'>
                                             <Form.Input name='name' label='Nom' placeholder='Nom' value={this.state.collection.name || ''} onChange={this.onCollChange} required />
                                         </Form.Group>
@@ -107,8 +101,8 @@ class GrimoireCollection extends React.Component {
                                         </Form.Group>
 
                                         <Form.Group widths='equal'>
-                                            <Dropdown name='owner' placeholder='Propriétaire(s)' fluid multiple search selection options={this.state.userList}
-                                                onChange={this.onOwnersChange} />
+                                            <Dropdown name='owners' placeholder='Propriétaire(s)' fluid multiple search selection value={this.state.collection.owners || []} options={this.state.userList}
+                                                onChange={this.onCollChange} />
                                         </Form.Group>
                                         <Form.Group widths='equal' />
                                     </Form>
