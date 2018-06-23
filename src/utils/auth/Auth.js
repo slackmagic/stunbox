@@ -16,13 +16,21 @@ const Auth =
                 console.log(new Date(decode(data.access_token).exp * 1000));
                 console.log(new Date(decode(data.refresh_token).exp * 1000));
             })
+            .catch()
+            .finally(() => {
+                console.log(sessionStorage.getItem('access-token'));
+                setTimeout(callback, 500);
+            });
 
-        setTimeout(callback, 0); // fake async
+
+
+        //setTimeout(callback, 0); // fake async
+        ;
     },
 
     isAuthenticated() {
         console.log("TOKEN EXPIRED:" + this.isTokenExpired(sessionStorage.getItem('access-token')));
-        if ("access-token" in sessionStorage) {
+        if ('access-token' in sessionStorage) {
             if (this.isTokenExpired(sessionStorage.getItem('access-token'))) {
                 this.signout();
                 return false;

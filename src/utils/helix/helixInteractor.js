@@ -25,6 +25,7 @@ const HelixInteractor = {
 
 
     getWithAuth(url, callback) {
+        console.log(ID_ACCESS_TOKEN);
         return fetch(url,
             {
                 method: "GET",

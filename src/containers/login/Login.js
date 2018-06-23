@@ -2,6 +2,7 @@ import React from 'react';
 import Auth from '../../utils//auth/auth';
 import AppHeader from "../../components/header/Header";
 import { Grid, Form, Segment, Input, Button, Header, Icon } from 'semantic-ui-react'
+import History from '../../utils/history/history'
 
 import '../../css/signin.css';
 
@@ -12,12 +13,12 @@ import {
 class Login extends React.Component {
 
   state = {
-    username: 'slackmagic',
-    password: 'slayer2005'
+    username: undefined,
+    password: undefined,
   }
 
   login = () => {
-    Auth.authenticate(this.state.username.trim(), this.state.password.trim(), () => { this.forceUpdate();; });
+    Auth.authenticate(this.state.username.trim(), this.state.password.trim(), () => { this.forceUpdate(); });
   };
 
   onChange = (e) => {
@@ -38,7 +39,8 @@ class Login extends React.Component {
     //const { username, password } = this.state;
 
     if (Auth.isAuthenticated()) {
-      return <Redirect to={from} />;
+      History.push(from);
+      //return <Redirect to={from} />;
     }
 
     return (

@@ -82,6 +82,18 @@ class GrimoireCollection extends React.Component {
                                     </Dimmer>
                                     <Form>
 
+
+
+                                        <Form.Group widths='equal'>
+                                            <Form.Input name='name' label='Nom' placeholder='Nom' value={this.state.collection.name || ''} onChange={this.onCollChange} required />
+                                        </Form.Group>
+                                        <Form.Group widths='equal'>
+                                            <Form.Input name='color' label='Couleur' placeholder='Couleur' value={this.state.collection.color || ''} onChange={this.onCollChange} />
+                                        </Form.Group>
+                                        <Form.Group widths='equal'>
+                                            <Dropdown name='owners' placeholder='Propriétaire(s)' fluid multiple search selection value={this.state.collection.owners || []} options={this.state.userList}
+                                                onChange={this.onCollChange} />
+                                        </Form.Group>
                                         {this.state.currentID === undefined ? (
                                             <Form.Group widths='equal'>
                                                 <Form.Select disabled={this.state.collection.uuid !== undefined} name='type_id' options={this.state.typeList} fluid label='Type'
@@ -90,26 +102,13 @@ class GrimoireCollection extends React.Component {
                                         ) : (
 
                                                 <div>
-                                                    <Label as='a' color='blue' size='large' ribbon>
+                                                    <Label as='a' color='blue' size='large' >
                                                         {this.state.typeList[this.state.collection.type_id] + " : " + Math.floor(Math.random() * 100) + " objet(s)."}
                                                     </Label>
-                                                    <br /> <br />
+                                                    <br />
                                                 </div>
                                             )
                                         }
-
-                                        <Form.Group widths='equal'>
-                                            <Form.Input name='name' label='Nom' placeholder='Nom' value={this.state.collection.name || ''} onChange={this.onCollChange} required />
-                                        </Form.Group>
-                                        <Form.Group widths='equal'>
-                                            <Form.Input name='color' label='Couleur' placeholder='Couleur' value={this.state.collection.color || ''} onChange={this.onCollChange} />
-                                        </Form.Group>
-
-                                        <Form.Group widths='equal'>
-                                            <Dropdown name='owners' placeholder='Propriétaire(s)' fluid multiple search selection value={this.state.collection.owners || []} options={this.state.userList}
-                                                onChange={this.onCollChange} />
-                                        </Form.Group>
-                                        <Form.Group widths='equal' />
                                     </Form>
                                     <br />
                                     <Form.Button type='submit' onClick={this.onSubmit}>Modifier</Form.Button>

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router,
+  Router,
   Route
 } from 'react-router-dom';
 
@@ -22,10 +22,12 @@ import GrimoireItems from './containers/grimoire/itemlist/grimItemList';
 import GrimoireItem from './containers/grimoire/itemlist/grimItem';
 import GrimoireCollection from './containers/grimoire/collection/grimCollection';
 import MainApp from './containers/main/main';
+import History from './utils/history/history'
+
 
 
 ReactDOM.render(
-  <Router>
+  <Router history={History}>
     <div>
       <Route exact path='/' component={MainApp} />
       <Route path='/login' component={Login} />
@@ -34,6 +36,7 @@ ReactDOM.render(
       <PrivateRoute exact path='/grimoire/item/:typeid' component={GrimoireItems} />
       <PrivateRoute exact path='/grimoire/item/:typeid/bysupport/:supportid' component={GrimoireItems} />
       <PrivateRoute exact path='/grimoire/item/edit/:itemid' component={GrimoireItem} />
+      <PrivateRoute exact path='/grimoire/item/new' component={GrimoireItem} />
       <PrivateRoute exact path='/grimoire/collection/new' component={GrimoireCollection} />
       <PrivateRoute exact path='/grimoire/collection/edit/:collid' component={GrimoireCollection} />
       <PrivateRoute exact path='/grimoire/collection/read/:collid' component={GrimoireItems} />
