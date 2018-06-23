@@ -17,7 +17,10 @@ const HelixInteractor = {
         )
             .then(response => response.json())
             .then(data => { return data; })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                throw new Error(this.errorGenerator(error));
+            });
     },
 
 
@@ -35,7 +38,10 @@ const HelixInteractor = {
         )
             .then(response => response.json())
             .then(data => { return data; })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                throw new Error(this.errorGenerator(error));
+            });
     },
 
     post(url, json, callback) {
@@ -54,7 +60,10 @@ const HelixInteractor = {
         )
             .then(response => response.json())
             .then(data => { return data; })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                throw new Error(this.errorGenerator(error));
+            });
     },
 
     postWithAuth(url, json, callback) {
@@ -74,7 +83,10 @@ const HelixInteractor = {
         )
             .then(response => response.json())
             .then(data => { return data; })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                throw new Error(this.errorGenerator(error));
+            });
     },
 
     put(url, json, callback) {
@@ -93,7 +105,10 @@ const HelixInteractor = {
         )
             .then(response => response.json())
             .then(data => { return data; })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                throw new Error(this.errorGenerator(error));
+            });
     },
 
     putWithAuth(url, json, callback) {
@@ -113,7 +128,14 @@ const HelixInteractor = {
         )
             .then(response => response.json())
             .then(data => { return data; })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                throw new Error(this.errorGenerator(error));
+            });
+    },
+
+    errorGenerator(error) {
+        return '[Erreur]: ' + error.message;
     }
 }
 

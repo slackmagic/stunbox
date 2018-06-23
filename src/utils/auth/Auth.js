@@ -17,7 +17,7 @@ const Auth =
                 console.log(new Date(decode(data.refresh_token).exp * 1000));
             })
 
-        setTimeout(callback, 500); // fake async
+        setTimeout(callback, 0); // fake async
     },
 
     isAuthenticated() {

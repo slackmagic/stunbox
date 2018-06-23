@@ -1,7 +1,8 @@
 import React from 'react';
 import GrimNav from '../components/grimNav';
 import GrimHeader from "../components/grimHeader";
-import { Container, Loader, Segment, Dimmer, Form, Grid, Dropdown } from 'semantic-ui-react'
+import { Container, Loader, Segment, Dimmer, Form, Grid, Dropdown, Label } from 'semantic-ui-react';
+import SaveMessage from "../../../components/saveMsg";
 import Itemstore from "../../../utils/helix/helixItemstore";
 import Userstore from "../../../utils/helix/helixUserstore";
 import Formatter from "../../../utils/helix/helixFormatter";
@@ -11,6 +12,8 @@ class GrimoireCollection extends React.Component {
 
     state = {
         isLoading: true,
+        isUpdated: undefined,
+        errMessage: "",
         currentID: this.props.match.params.collid,
         collection: { id: -1 },
         owners: {},
@@ -23,9 +26,16 @@ class GrimoireCollection extends React.Component {
         if (this.state.currentID !== undefined) {
             Itemstore.collectionByUuid(this.props.match.params.collid)
                 .then(data => this.setState({ collection: data }));
+
+            //Type for Dropdown.
+            Itemstore.typeList()
+                .then(data => this.setState({ typeList: Formatter.typeToHashmap(data), isLoading: false }));
         }
-        Itemstore.typeList()
-            .then(data => this.setState({ typeList: Formatter.typeToDropdown(data), isLoading: false }));
+        else {
+            //Type for label.
+            Itemstore.typeList()
+                .then(data => this.setState({ typeList: Formatter.typeToDropdown(data), isLoading: false }));
+        }
 
         Userstore.userList()
             .then(data => this.setState({ userList: Formatter.userToDropdown(data), isLoading: false }));
@@ -35,11 +45,13 @@ class GrimoireCollection extends React.Component {
         e.preventDefault();
         if (this.state.currentID === undefined) {
             Itemstore.newCollection(this.state.collection)
-                .then(data => this.setState({ collection: data }));
+                .then(data => this.setState({ collection: data, isUpdated: true }))
+                .catch(error => this.setState({ isUpdated: false, errMessage: error.message }));
         }
         else {
             Itemstore.updateCollection(this.state.collection)
-                .then(data => this.setState({ collection: data }));
+                .then(data => this.setState({ collection: data, isUpdated: true }))
+                .catch(error => this.setState({ isUpdated: false, errMessage: error.message }));
         }
 
         console.log(this.state);
@@ -47,14 +59,13 @@ class GrimoireCollection extends React.Component {
 
     onCollChange = (e, data) => {
         e.preventDefault();
-
         const collToUpdate = this.state.collection;
         collToUpdate[data.name] = data.value;
-        this.setState({ collection: collToUpdate });
-
+        this.setState({ collection: collToUpdate, isUpdated: undefined });
     }
 
     render() {
+
         return (
             <div>
                 <Container fluid>
@@ -64,22 +75,12 @@ class GrimoireCollection extends React.Component {
                         <Grid.Row>
                             <Grid.Column computer={3} tablet={3} only='computer tablet' />
                             <Grid.Column mobile={16} tablet={10} computer={10}>
+                                <SaveMessage isCorrectlyUpdated={this.state.isUpdated} errMessage={this.state.errMessage} />
                                 <Dimmer.Dimmable as={Segment} dimmed={this.state.isLoading}>
                                     <Dimmer onClickOutside={this.handleHide} active={this.state.isLoading} inverted>
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
                                     <Form>
-                                        {this.state.currentID === undefined ? (
-                                            <Form.Group widths='equal'>
-                                                <Form.Input disabled name='uuid' label='uuid' placeholder='UUID' value={this.state.collection.uuid || ''}
-                                                    onChange={this.onCollChange} required />
-                                            </Form.Group>
-                                        ) : (
-                                                <Form.Group widths='equal'>
-                                                    {this.state.collection.uuid}
-                                                </Form.Group>
-                                            )
-                                        }
 
                                         {this.state.currentID === undefined ? (
                                             <Form.Group widths='equal'>
@@ -87,9 +88,13 @@ class GrimoireCollection extends React.Component {
                                                     placeholder='Choisissez un type' value={this.state.collection.type_id || ''} onChange={this.onCollChange} required />
                                             </Form.Group>
                                         ) : (
-                                                <Form.Group widths='equal'>
-                                                    {this.state.collection.type_id}
-                                                </Form.Group>
+
+                                                <div>
+                                                    <Label as='a' color='blue' size='large' ribbon>
+                                                        {this.state.typeList[this.state.collection.type_id] + " : " + Math.floor(Math.random() * 100) + " objet(s)."}
+                                                    </Label>
+                                                    <br /> <br />
+                                                </div>
                                             )
                                         }
 

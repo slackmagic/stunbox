@@ -16,7 +16,7 @@ class Header extends React.Component {
         <Menu.Item header><span role="img" aria-label="Stunbox">📦</span>&nbsp;STUNBOX</Menu.Item>
         <Dropdown item text='Applications' color={mcolor} pointing>
           <Dropdown.Menu>
-            <Dropdown.Item href='grimoire' color={mcolor} text='Grimoire' onClick={this.handleItemClick} />
+            <Dropdown.Item href='grimoire/' color={mcolor} text='Grimoire' onClick={this.handleItemClick} />
             <Dropdown.Item href='grimoire' color={mcolor} text='UserManagement' onClick={this.handleItemClick} />
             <Dropdown.Item href='grimoire' color={mcolor} text='Wishlist' onClick={this.handleItemClick} />
             <Dropdown.Item href='grimoire' color={mcolor} text='NewApp' onClick={this.handleItemClick} />

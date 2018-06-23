@@ -5,7 +5,6 @@ import 'react-table/react-table.css';
 class GrimoireCollectionList extends React.Component {
 
     render() {
-        console.log(this.props.typeList);
 
         const ascData = [].concat(this.props.collections)
             .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
