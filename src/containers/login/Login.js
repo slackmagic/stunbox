@@ -1,20 +1,15 @@
 import React from 'react';
+import { Redirect } from "react-router-dom";
 import Auth from '../../utils//auth/auth';
 import AppHeader from "../../components/header/Header";
-import { Grid, Form, Segment, Input, Button, Header, Icon } from 'semantic-ui-react'
-import History from '../../utils/history/history'
-
+import { Grid, Form, Segment, Input, Button, Header, Icon } from 'semantic-ui-react';
 import '../../css/signin.css';
-
-import {
-  Redirect
-} from "react-router-dom";
 
 class Login extends React.Component {
 
   state = {
-    username: undefined,
-    password: undefined,
+    username: "slackmagic",
+    password: "slayer2005",
   }
 
   login = () => {
@@ -36,11 +31,10 @@ class Login extends React.Component {
 
   render() {
     const { from } = this.props.location.state || { from: { pathname: "/" } };
-    //const { username, password } = this.state;
+
 
     if (Auth.isAuthenticated()) {
-      History.push(from);
-      //return <Redirect to={from} />;
+      return <Redirect to={from} />;
     }
 
     return (

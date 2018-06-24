@@ -1,8 +1,14 @@
-const API_ACCESS_TOKEN = "1234567890-ABCDEFGH";
-const ID_ACCESS_TOKEN = sessionStorage.getItem('access-token');
+var API_ACCESS_TOKEN = "1234567890-ABCDEFGH";
+var ID_ACCESS_TOKEN;
 //const ID_REFRESH_TOKEN = sessionStorage.getItem('refresh-token');
 
 const HelixInteractor = {
+
+    init() {
+        API_ACCESS_TOKEN = "1234567890-ABCDEFGH";
+        ID_ACCESS_TOKEN = sessionStorage.getItem('access-token');
+
+    },
 
     get(url, callback) {
         return fetch(url,
@@ -25,7 +31,7 @@ const HelixInteractor = {
 
 
     getWithAuth(url, callback) {
-        console.log(ID_ACCESS_TOKEN);
+        this.init();
         return fetch(url,
             {
                 method: "GET",
@@ -68,7 +74,7 @@ const HelixInteractor = {
     },
 
     postWithAuth(url, json, callback) {
-
+        this.init();
         console.log(url);
         console.log(json);
         return fetch(url,
@@ -113,7 +119,7 @@ const HelixInteractor = {
     },
 
     putWithAuth(url, json, callback) {
-
+        this.init();
         console.log(url);
         console.log(json);
         return fetch(url,

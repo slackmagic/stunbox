@@ -8,17 +8,16 @@ const Auth =
         Userstore.login(login, password)
             .then(data => {
                 console.log(data);
-                sessionStorage.setItem('access-token', data.access_token);
-                sessionStorage.setItem('access-exp', decode(data.access_token).exp);
-                sessionStorage.setItem('refresh-token', data.refresh_token);
-                sessionStorage.setItem('refresh-exp', decode(data.refresh_token).exp);
+                this.saveItem('access-token', data.access_token);
+                this.saveItem('access-exp', decode(data.access_token).exp);
+                this.saveItem('refresh-token', data.refresh_token);
+                this.saveItem('refresh-exp', decode(data.refresh_token).exp);
 
                 console.log(new Date(decode(data.access_token).exp * 1000));
                 console.log(new Date(decode(data.refresh_token).exp * 1000));
             })
             .catch()
             .finally(() => {
-                console.log(sessionStorage.getItem('access-token'));
                 setTimeout(callback, 500);
             });
 
@@ -45,6 +44,14 @@ const Auth =
                 return true;
             } else return false;
         } catch (err) { return false; }
+    },
+
+    async saveItem(item, selectedValue) {
+        try {
+            await sessionStorage.setItem(item, selectedValue);
+        } catch (error) {
+            console.error('sessionStorage error: ' + error.message);
+        }
     },
 
     signout(callback) {

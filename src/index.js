@@ -5,7 +5,6 @@ import {
   Route
 } from 'react-router-dom';
 
-
 //import './css/index.css';
 //import './css/bootstrap.lumen.css';
 import './semantic/dist/semantic.min.css'
@@ -23,7 +22,6 @@ import GrimoireItem from './containers/grimoire/itemlist/grimItem';
 import GrimoireCollection from './containers/grimoire/collection/grimCollection';
 import MainApp from './containers/main/main';
 import History from './utils/history/history'
-
 
 
 ReactDOM.render(
