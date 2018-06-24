@@ -1,7 +1,7 @@
 import React from 'react';
 import GrimNav from '../components/grimNav';
 import GrimHeader from "../components/grimHeader";
-import { Container, Loader, Segment, Dimmer, Form, Grid, Dropdown, Label } from 'semantic-ui-react';
+import { Container, Loader, Segment, Dimmer, Form, Grid } from 'semantic-ui-react';
 import SaveMessage from "../../../components/saveMsg";
 import Itemstore from "../../../utils/helix/helixItemstore";
 import Userstore from "../../../utils/helix/helixUserstore";
