@@ -19,7 +19,7 @@ class GrimoireItemListCard extends React.Component {
             <Card.Group itemsPerRow={4} stackable>
                 {
                     myData.map(item =>
-                        <Card href={"./item/" + item.uuid} color={options[item.support_id]} key={item.id}>
+                        <Card href={"../../item/edit/" + item.uuid} color={options[item.support_id]} key={item.id}>
                             < Card.Content >
                                 <Card.Header>{item.reference.name}</Card.Header>
                                 <Card.Meta>{item.created_on}</Card.Meta>

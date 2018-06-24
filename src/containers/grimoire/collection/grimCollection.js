@@ -16,7 +16,6 @@ class GrimoireCollection extends React.Component {
         errMessage: "",
         currentID: this.props.match.params.collid,
         collection: { id: -1 },
-        owners: {},
         typeList: [],
         userList: [],
     }
