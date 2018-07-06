@@ -31,10 +31,10 @@ ReactDOM.render(
       <Route path='/login' component={Login} />
 
       <PrivateRoute exact path='/grimoire' component={GrimoireDashboard} />
-      <PrivateRoute exact path='/grimoire/item/:typeid' component={GrimoireItems} />
-      <PrivateRoute exact path='/grimoire/item/:typeid/bysupport/:supportid' component={GrimoireItems} />
+      <PrivateRoute exact path='/grimoire/item/read/:typeid' component={GrimoireItems} />
+      <PrivateRoute exact path='/grimoire/item/read/:typeid/bysupport/:supportid' component={GrimoireItems} />
       <PrivateRoute exact path='/grimoire/item/edit/:itemid' component={GrimoireItem} />
-      <PrivateRoute exact path='/grimoire/item/new' component={GrimoireItem} />
+      <PrivateRoute exact path='/grimoire/item/new/' component={GrimoireItem} />
       <PrivateRoute exact path='/grimoire/collection/new' component={GrimoireCollection} />
       <PrivateRoute exact path='/grimoire/collection/edit/:collid' component={GrimoireCollection} />
       <PrivateRoute exact path='/grimoire/collection/read/:collid' component={GrimoireItems} />
