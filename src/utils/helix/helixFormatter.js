@@ -13,6 +13,18 @@ const HelixFormatter = {
         );
     },
 
+    supportToDropdown(list) {
+        return list.map(
+            obj => {
+                var rObj = {};
+                rObj["key"] = obj.id;
+                rObj["value"] = obj.id;
+                rObj["text"] = obj.name;
+                return rObj;
+            }
+        );
+    },
+
     typeToHashmap(list) {
         return list.reduce((map, obj) => { map[obj.id] = obj.name; return map; }, {});
     },

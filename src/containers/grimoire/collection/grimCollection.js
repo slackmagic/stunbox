@@ -1,7 +1,7 @@
 import React from 'react';
 import GrimNav from '../components/grimNav';
 import GrimHeader from "../components/grimHeader";
-import { Container, Loader, Segment, Dimmer, Form, Grid, Dropdown, Label } from 'semantic-ui-react';
+import { Container, Loader, Segment, Dimmer, Form, Grid, Dropdown, Label, Header, Icon } from 'semantic-ui-react';
 import SaveMessage from "../../../components/saveMsg";
 import Itemstore from "../../../utils/helix/helixItemstore";
 import Userstore from "../../../utils/helix/helixUserstore";
@@ -75,14 +75,18 @@ class GrimoireCollection extends React.Component {
                             <Grid.Column computer={3} tablet={3} only='computer tablet' />
                             <Grid.Column mobile={16} tablet={10} computer={10}>
                                 <SaveMessage isCorrectlyUpdated={this.state.isUpdated} errMessage={this.state.errMessage} />
+                                <Header as='h3' attached='top'>
+                                    <Icon name='archive book' circular />
+                                    <Header.Content>
+                                        Collection
+                                        <Header.Subheader>Ajouter ou mettre à jour une collection.</Header.Subheader>
+                                    </Header.Content>
+                                </Header>
                                 <Dimmer.Dimmable as={Segment} dimmed={this.state.isLoading}>
                                     <Dimmer onClickOutside={this.handleHide} active={this.state.isLoading} inverted>
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
                                     <Form>
-
-
-
                                         <Form.Group widths='equal'>
                                             <Form.Input name='name' label='Nom' placeholder='Nom' value={this.state.collection.name || ''} onChange={this.onCollChange} required />
                                         </Form.Group>
