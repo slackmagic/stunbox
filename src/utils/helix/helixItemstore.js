@@ -10,6 +10,7 @@ const TYPE_LIST = "/api/itemstore/type/all";
 const ITEM_BY_UUID = "/api/itemstore/item/";
 const COLLECTION_BY_UUID = "/api/itemstore/collection/";
 const COLLECTION_ADD = "/api/itemstore/collection";
+const REFERENCE_SEARCH = "/api/itemstore/reference/search/";
 
 const HelixItemstore = {
 
@@ -56,6 +57,10 @@ const HelixItemstore = {
     updateCollection(collection, callback) {
         return HelixInteractor.putWithAuth(COLLECTION_ADD, JSON.stringify(collection));
     },
+
+    searchReference(search, callback) {
+        return HelixInteractor.getWithAuth(REFERENCE_SEARCH + encodeURI(search));
+    }
 }
 
 export default HelixItemstore;

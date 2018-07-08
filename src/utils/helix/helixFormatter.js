@@ -39,6 +39,18 @@ const HelixFormatter = {
                 return rObj;
             }
         );
+    },
+
+    referenceToSearch(list) {
+        return list.map(
+            obj => {
+                var rObj = {};
+                rObj["key"] = obj.uuid;
+                rObj["value"] = obj;
+                rObj["title"] = obj.name;
+                return rObj;
+            }
+        );
     }
 }
 export default HelixFormatter;
