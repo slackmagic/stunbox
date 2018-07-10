@@ -1,6 +1,16 @@
 
 const HelixFormatter = {
 
+    dateToText(time, prefix = "") {
+        if (time !== undefined) {
+            var date = new Date(time) // returns NaN if it can't parse
+            return Number.isNaN(date) ? "" : prefix + date.toLocaleDateString("fr-FR");
+        }
+        else {
+            return time;
+        }
+    },
+
     typeToDropdown(list) {
         return list.map(
             obj => {
@@ -36,6 +46,18 @@ const HelixFormatter = {
                 rObj["key"] = obj.person.uuid;
                 rObj["value"] = obj.person.uuid;
                 rObj["text"] = obj.person.firstname + " (" + obj.login + ")";
+                return rObj;
+            }
+        );
+    },
+
+    collectionToDropdown(list) {
+        return list.map(
+            obj => {
+                var rObj = {};
+                rObj["key"] = obj.uuid;
+                rObj["value"] = obj.uuid;
+                rObj["text"] = obj.name;
                 return rObj;
             }
         );

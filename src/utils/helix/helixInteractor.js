@@ -142,7 +142,7 @@ const HelixInteractor = {
     },
 
     errorGenerator(error) {
-        return '[Erreur]: ' + error.message;
+        return '[Erreur HELIX]: ' + error.message;
     }
 }
 

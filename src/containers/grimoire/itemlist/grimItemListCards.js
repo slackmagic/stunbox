@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Label } from 'semantic-ui-react'
+import Formatter from "../../../utils/helix/helixFormatter";
 import 'react-table/react-table.css';
 
 class GrimoireItemListCard extends React.Component {
@@ -22,7 +23,7 @@ class GrimoireItemListCard extends React.Component {
                         <Card href={"../../item/edit/" + item.uuid} color={options[item.support_id]} key={item.id}>
                             < Card.Content >
                                 <Card.Header>{item.reference.name}</Card.Header>
-                                <Card.Meta>{item.created_on}</Card.Meta>
+                                <Card.Meta>{Formatter.dateToText(item.created_on, "créée le ")}</Card.Meta>
                                 <Card.Description>
 
                                 </Card.Description>

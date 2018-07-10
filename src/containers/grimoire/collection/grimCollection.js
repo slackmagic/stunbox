@@ -75,7 +75,7 @@ class GrimoireCollection extends React.Component {
                             <Grid.Column computer={3} tablet={3} only='computer tablet' />
                             <Grid.Column mobile={16} tablet={10} computer={10}>
                                 <SaveMessage isCorrectlyUpdated={this.state.isUpdated} errMessage={this.state.errMessage} />
-                                <Header as='h3' attached='top'>
+                                <Header as='h3' attached='top' block>
                                     <Icon name='archive book' circular />
                                     <Header.Content>
                                         Collection
@@ -93,10 +93,10 @@ class GrimoireCollection extends React.Component {
                                         <Form.Group widths='equal'>
                                             <Form.Input name='color' label='Couleur' placeholder='Couleur' value={this.state.collection.color || ''} onChange={this.onCollChange} />
                                         </Form.Group>
-                                        <Form.Group widths='equal'>
-                                            <Dropdown name='owners' placeholder='Propriétaire(s)' fluid multiple search selection value={this.state.collection.owners || []} options={this.state.userList}
-                                                onChange={this.onCollChange} />
-                                        </Form.Group>
+                                        <b>Propriétaire(s)</b>
+                                        <Dropdown input={{ fluid: true }} name='owners' placeholder='Propriétaire(s)' fluid multiple search selection value={this.state.collection.owners || []} options={this.state.userList}
+                                            onChange={this.onCollChange} />
+                                        <br />
                                         {this.state.currentID === undefined ? (
                                             <Form.Group widths='equal'>
                                                 <Form.Select disabled={this.state.collection.uuid !== undefined} name='type_id' options={this.state.typeList} fluid label='Type'
