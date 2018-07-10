@@ -4,21 +4,20 @@ import { Menu, Button, Dropdown, Grid } from 'semantic-ui-react'
 class GrimoireHeader extends React.Component {
 
   state = {}
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  handleItemClick = (e, data) => {
+    this.setState({ activeItem: data.name });
+  }
+
   render() {
 
     return (
 
       <Grid fluid="true">
         <Grid.Row columns={16} only='computer tablet' fluid="true">
-          <Menu color='blue' fluid stackable inverted>
+          <Menu color='blue' fluid stackable inverted >
             <Menu.Item header><span role="img" aria-label="Stunbox"></span>&nbsp;STUNBOX.Grimoire</Menu.Item>
-            <Menu.Item name='📈 Tableau de bord' onClick={this.handleItemClick} />
-            <Menu.Item name='🎮 Jeux Vidéo' onClick={this.handleItemClick} />
-            <Menu.Item name='💿 Films' onClick={this.handleItemClick} />
-            <Menu.Item name='📚 Livres' onClick={this.handleItemClick} />
-            <Menu.Item name='🎲 Jeux de société' onClick={this.handleItemClick} />
-            <Menu.Item name='📦 Divers' onClick={this.handleItemClick} />
+            <Menu.Item name='📈 Tableau de bord' value='here' onClick={this.handleItemClick} />
             <Menu.Menu position='right'>
               <Menu.Item href='login'><Button color='violet'>Se déconnecter</Button></Menu.Item>
             </Menu.Menu>

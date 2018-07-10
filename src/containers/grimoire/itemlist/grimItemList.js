@@ -56,7 +56,7 @@ class GrimoireItemList extends React.Component {
             <div>
                 <Container fluid>
                     <GrimNav />
-                    <GrimHeader />
+                    <GrimHeader title="Collection" subtitle="Ma collection" />
                     <Grid>
                         <Grid.Row>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />

@@ -29,7 +29,7 @@ class GrimNav extends React.Component {
                     <Input size='large' name='namefilter' action={{ icon: 'search' }} placeholder='Recherche par titre...' onChange={this.onNameChange} />
                 </Menu.Item>
                 <Menu.Item>
-                    <Button icon labelPosition='left' color='blue' >
+                    <Button icon labelPosition='left' >
                         <Icon name='plus' />
                         Ajouter nouveau
                     </Button>
@@ -37,7 +37,7 @@ class GrimNav extends React.Component {
                 <Menu.Menu position='right'>
                     <Dropdown item text={'Support : ' + activeName}>
                         <Dropdown.Menu>
-                            <Dropdown.Header icon='tags' content='Filter par support' />
+                            <Dropdown.Header icon='tags' content='Filtrer par support' />
                             <Menu.Item color='purple' displayname='Tous' active={activeItem === 'all'} onClick={this.handleItemClick}>
                                 <Label color='teal'>1</Label>Tous
                             </Menu.Item>
