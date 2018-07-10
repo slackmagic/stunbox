@@ -76,7 +76,7 @@ class GrimoireCollection extends React.Component {
                             <Grid.Column mobile={16} tablet={10} computer={10}>
                                 <SaveMessage isCorrectlyUpdated={this.state.isUpdated} errMessage={this.state.errMessage} />
                                 <Header as='h3' attached='top' block>
-                                    <Icon name='archive book' circular />
+                                    <Icon name='book' circular />
                                     <Header.Content>
                                         Collection
                                         <Header.Subheader>Ajouter ou mettre à jour une collection.</Header.Subheader>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Input, Label, Dropdown } from 'semantic-ui-react'
+import { Menu, Input, Label, Dropdown, Button, Icon } from 'semantic-ui-react'
 
 class GrimNav extends React.Component {
 
@@ -27,6 +27,12 @@ class GrimNav extends React.Component {
             <Menu pointing fluid stackable>
                 <Menu.Item>
                     <Input size='large' name='namefilter' action={{ icon: 'search' }} placeholder='Recherche par titre...' onChange={this.onNameChange} />
+                </Menu.Item>
+                <Menu.Item>
+                    <Button icon labelPosition='left' color='blue' >
+                        <Icon name='plus' />
+                        Ajouter nouveau
+                    </Button>
                 </Menu.Item>
                 <Menu.Menu position='right'>
                     <Dropdown item text={'Support : ' + activeName}>

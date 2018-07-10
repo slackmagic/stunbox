@@ -23,7 +23,7 @@ class GrimoireItem extends React.Component {
         errMessage: "",
         currentID: this.props.match.params.itemid,
         item: {
-            id: -1, reference: {}
+            id: -1, reference: {},
         },
         supportList: [],
         typeList: [],
@@ -72,6 +72,14 @@ class GrimoireItem extends React.Component {
         console.log(this.state);
     }
 
+    onItemCheckedChange = (e, data) => {
+        e.preventDefault();
+        const itemToUpdate = this.state.item;
+        itemToUpdate[data.name] = data.checked;
+        this.setState({ item: itemToUpdate, isUpdated: undefined });
+        console.log(this.state);
+    }
+
     onRefChange = (e, data) => {
         e.preventDefault();
         const itemToUpdate = this.state.item;
@@ -98,7 +106,7 @@ class GrimoireItem extends React.Component {
 
     resetSearch = () => {
         const itemToUpdate = this.state.item;
-        itemToUpdate['reference'] = { type_id: this.state.currentType };
+        itemToUpdate['reference'] = { id: -1, type_id: this.state.currentType };
         this.setState({ isSearchLoading: false, searchResults: [], item: itemToUpdate });
         console.log(this.state);
     }
@@ -106,7 +114,7 @@ class GrimoireItem extends React.Component {
     onSearchRefChange = (e, data) => {
         e.preventDefault();
         const itemToUpdate = this.state.item;
-        itemToUpdate['reference'] = { name: data.value, type_id: this.state.currentType };
+        itemToUpdate['reference'] = { id: -1, name: data.value, type_id: this.state.currentType };
         this.setState({ isSearchLoading: true, searchResults: [], item: itemToUpdate, currentSearch: data.value });
         console.log(this.state);
 
@@ -125,18 +133,38 @@ class GrimoireItem extends React.Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        if (this.state.item.uuid === -1) {
-            //Create new item
+        console.log(this.state);
 
+        //TODO VALIDATE
 
-            Itemstore.newCollection(this.state.collection)
-                .then(data => this.setState({ collection: data, isUpdated: true }))
+        //__REFERENCE PART
+        if (this.state.item.reference.uuid === undefined) {
+            //Create new reference
+            Itemstore.newReference(this.state.item.reference)
+                .then(data => {
+                    const itemToUpdate = this.state.item;
+                    itemToUpdate['reference'] = data;
+                    this.setState({ item: itemToUpdate, isUpdated: true })
+                })
                 .catch(error => this.setState({ isUpdated: false, errMessage: error.message }));
+
+        }
+
+        if (this.state.item.uuid === undefined) {
+            //Create new item
+            Itemstore.newItem(this.state.item)
+                .then(data => {
+                    this.setState({ item: data, isUpdated: true })
+                })
+                .catch(error => this.setState({ isUpdated: false, errMessage: error.message }));
+
         }
         else {
-            //Update item
-            Itemstore.updateCollection(this.state.collection)
-                .then(data => this.setState({ collection: data, isUpdated: true }))
+            //Update new item
+            Itemstore.updateItem(this.state.item)
+                .then(data => {
+                    this.setState({ item: data, isUpdated: true })
+                })
                 .catch(error => this.setState({ isUpdated: false, errMessage: error.message }));
         }
     }
@@ -191,7 +219,7 @@ class GrimoireItem extends React.Component {
                                         <Form.Select name='support_id' fluid label='Support' placeholder='Choisissez un support' options={this.state.supportList} value={this.state.item.support_id || ''} onChange={this.onItemChange} required />
                                         <Form.Input name='edition' label='Edition' placeholder='Edition' value={this.state.item.edition || ''} onChange={this.onItemChange} />
                                         <b>Collector&nbsp;&nbsp;</b>
-                                        <Form.Checkbox toggle name='is_collector_edition' checked={this.state.item.is_collector_edition || false} onChange={this.onItemChange} />
+                                        <Form.Checkbox toggle name='is_collector_edition' checked={this.state.item.is_collector_edition || false} onChange={this.onItemCheckedChange} />
                                         <Form.Input name='purchased_on' label="Date d'achat/réception" placeholder='DD/MM/YYYY' value={Formatter.dateToText(this.state.item.purchased_on) || ''} onChange={this.onItemChange} />
                                         <b>Propriétaire(s)</b>
                                         <Dropdown input={{ fluid: true }} name='owned_by' placeholder='Propriétaire(s)' fluid multiple search selection value={this.state.item.owned_by || []} options={this.state.userList}
