@@ -14,14 +14,22 @@ class GrimoireItemList extends React.Component {
         isLoading: true,
         supports: [],
         items: [],
+        collection: {},
         currentCollection: this.props.match.params.collid,
         currentType: this.props.match.params.typeid,
         currentSupport: this.props.match.params.supportid,
     }
 
     componentDidMount() {
-        Itemstore.supportsByType(this.props.match.params.typeid)
-            .then(data => this.setState({ supports: data }));
+        if (this.state.currentCollection !== undefined) {
+            Itemstore.collectionByUuid(this.props.match.params.collid)
+                .then(data => {
+                    this.setState({ collection: data });
+
+                    Itemstore.supportsByType(data.type_id)
+                        .then(data => this.setState({ supports: data }));
+                });
+        }
 
         this.setState({
             currentSupport: this.props.match.params.supportid
@@ -56,7 +64,7 @@ class GrimoireItemList extends React.Component {
             <div>
                 <Container fluid>
                     <GrimNav />
-                    <GrimHeader title="Collection" subtitle="Ma collection" />
+                    <GrimHeader icon="play" title={this.state.collection.name} subtitle="Contenu de la collection" />
                     <Grid>
                         <Grid.Row>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
@@ -67,7 +75,7 @@ class GrimoireItemList extends React.Component {
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
                                     <br />
-                                    <GrimCardList items={this.state.items} />
+                                    <GrimCardList items={this.state.items} supports={this.state.supports} />
                                 </Dimmer.Dimmable>
                             </Grid.Column>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />

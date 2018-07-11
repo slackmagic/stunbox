@@ -15,7 +15,7 @@ class GrimoireHeader extends React.Component {
 
       <Grid fluid="true">
         <Grid.Row columns={16} only='computer tablet' fluid="true">
-          <Menu color='blue' fluid stackable inverted >
+          <Menu color='violet' fluid stackable  >
             <Menu.Item header><span role="img" aria-label="Stunbox"></span>&nbsp;STUNBOX.Grimoire</Menu.Item>
             <Menu.Item name='📈 Tableau de bord' value='here' onClick={this.handleItemClick} />
             <Menu.Menu position='right'>
@@ -24,7 +24,7 @@ class GrimoireHeader extends React.Component {
           </Menu>
         </Grid.Row>
         <Grid.Row columns={16} only='mobile' fluid="true">
-          <Menu color='blue' inverted stackable fluid>
+          <Menu color='violet' stackable fluid>
             <Dropdown item text='&nbsp;STUNBOX.Grimoire'>
               <Dropdown.Menu>
                 <Menu.Item name='📈 Tableau de bord' onClick={this.handleItemClick} />
@@ -33,7 +33,7 @@ class GrimoireHeader extends React.Component {
                 <Menu.Item name='📚 Livres' onClick={this.handleItemClick} />
                 <Menu.Item name='🎲 Jeux de société' onClick={this.handleItemClick} />
                 <Menu.Item name='📦 Divers' onClick={this.handleItemClick} />
-                <Menu.Item href='login'><Button color='red'>Se déconnecter</Button></Menu.Item>
+                <Menu.Item href='login'><Button color='violet'>Se déconnecter</Button></Menu.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Menu>

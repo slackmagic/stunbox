@@ -35,7 +35,7 @@ class GrimoireDashboard extends React.Component {
             <div>
                 <Container fluid>
                     <GrimNav />
-                    <GrimHeader />
+                    <GrimHeader icon="book" title="Collection" subtitle="Liste des collections disponibles" />
                     <Grid>
                         <Grid.Row>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
