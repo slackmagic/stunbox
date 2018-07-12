@@ -4,9 +4,10 @@ import GrimNav from '../components/grimNav';
 import GrimHeader from "../components/grimHeader";
 import { Container, Loader, Segment, Dimmer, Form, Grid, Search, Label, Dropdown } from 'semantic-ui-react';
 import SaveMessage from "../../../components/saveMsg";
-import Itemstore from "../../../utils/helix/helixItemstore";
-import Userstore from "../../../utils/helix/helixUserstore";
-import Formatter from "../../../utils/helix/helixFormatter";
+import Itemstore from "../../../services/helix/helixItemstore";
+import Userstore from "../../../services/helix/helixUserstore";
+import Formatter from "../../../services/helix/helixFormatter";
+import StunboxService from "../../../services/stunbox/stunboxService";
 
 import "react-table/react-table.css";
 import "../../../css/background.css";
@@ -16,14 +17,19 @@ class GrimoireItem extends React.Component {
     state = {
         isLoading: true,
         isSearchLoading: false,
+        isUpdated: undefined,
+        currentID: this.props.match.params.itemid,
         currentSearch: undefined,
+        currentCollection: this.props.match.params.collid,
         currentType: this.props.match.params.typeid,
         searchResults: [],
-        isUpdated: undefined,
         errMessage: "",
-        currentID: this.props.match.params.itemid,
+        collection: {},
         item: {
-            id: -1, reference: {},
+            id: -1,
+            reference: {},
+            owned_by: [StunboxService.getMyPersonUUID()],
+            contained_by: [this.props.match.params.collid]
         },
         supportList: [],
         typeList: [],
@@ -33,24 +39,34 @@ class GrimoireItem extends React.Component {
 
     componentDidMount() {
 
-        //Edit
+        //_EDIT ITEM
         if (this.state.currentID !== undefined) {
             Itemstore.itemByUuid(this.props.match.params.itemid)
                 .then(data => {
                     this.setState({ item: data, currentSearch: data.reference.name, currentType: data.reference.type_id });
                     this.loadSupports(data.reference.type_id);
+
+                    Itemstore.collectionByUuid(data.collections[0])
+                        .then(dataC => {
+                            this.setState({ collection: dataC });
+                            this.loadSupports(this.state.collection.type_id)
+                        });
+
                     console.log(data);
                 });
         }
 
-        if (this.state.currentType !== undefined) {
-            this.setState({ currentType: this.state.currentType.toUpperCase() });
-            this.loadSupports(this.state.currentType);
-
+        //_NEW ITEM
+        if (this.props.match.params.collid !== undefined) {
+            Itemstore.collectionByUuid(this.props.match.params.collid)
+                .then(dataC => {
+                    this.setState({ collection: dataC });
+                    this.loadSupports(this.state.collection.type_id)
+                });
         }
 
-        Itemstore.typeList()
-            .then(data => { this.setState({ typeList: Formatter.typeToHashmap(data) }) });
+        Itemstore.supportsByType()
+            .then(data => this.setState({ supportList: Formatter.userToDropdown(data) }));
         Userstore.userList()
             .then(data => this.setState({ userList: Formatter.userToDropdown(data) }));
         Itemstore.collectionList()
@@ -177,8 +193,8 @@ class GrimoireItem extends React.Component {
                     <GrimNav />
 
                     {this.state.item.uuid === undefined
-                        ? (<GrimHeader icon="edit" title={"[" + this.state.typeList[this.state.currentType] + "] Ajouter nouveau"} subtitle="Collection ???" />)
-                        : (<GrimHeader icon="edit" title={"[" + this.state.typeList[this.state.currentType] + "] Mise à jour"} subtitle="Collection ???" />)}
+                        ? (<GrimHeader icon="edit" title={this.state.collection.name} subtitle={"Ajouter un nouvel objet"} />)
+                        : (<GrimHeader icon="edit" title={this.state.collection.name} subtitle={"Mettre à jour l'objet"} />)}
                     <Grid>
                         <Grid.Row>
                             <Grid.Column computer={3} tablet={3} only='computer tablet' />
@@ -214,11 +230,11 @@ class GrimoireItem extends React.Component {
                                         <Form.Checkbox toggle name='is_collector_edition' checked={this.state.item.is_collector_edition || false} onChange={this.onItemCheckedChange} />
                                         <Form.Input name='purchased_on' label="Date d'achat/réception" placeholder='DD/MM/YYYY' value={Formatter.dateToText(this.state.item.purchased_on) || ''} onChange={this.onItemChange} />
                                         <b>Propriétaire(s)</b>
-                                        <Dropdown input={{ fluid: true }} name='owned_by' placeholder='Propriétaire(s)' fluid multiple search selection value={this.state.item.owned_by || []} options={this.state.userList}
+                                        <Dropdown input={{ fluid: true }} name='owners' placeholder='Propriétaire(s)' fluid multiple search selection value={this.state.item.owners || []} options={this.state.userList}
                                             onChange={this.onItemChange} />
                                         <br />
                                         <b>Collection(s)</b>
-                                        <Dropdown input={{ fluid: true }} name='contained_by' placeholder='Collection(s)' fluid multiple search selection value={this.state.item.contained_by || []} options={this.state.collectionList}
+                                        <Dropdown input={{ fluid: true }} name='collections' placeholder='Collection(s)' fluid multiple search selection value={this.state.item.collections || []} options={this.state.collectionList}
                                             onChange={this.onItemChange} />
                                         <br />
                                         <Form.Input name='url' label='URL' placeholder='URL' value={this.state.item.url || ''} onChange={this.onItemChange} />

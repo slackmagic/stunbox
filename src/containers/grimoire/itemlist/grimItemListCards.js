@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Label } from 'semantic-ui-react'
-import Formatter from "../../../utils/helix/helixFormatter";
+import Formatter from "../../../services/helix/helixFormatter";
 import 'react-table/react-table.css';
 
 class GrimoireItemListCard extends React.Component {

@@ -1,5 +1,5 @@
 import decode from 'jwt-decode';
-import Userstore from '../helix/helixUserstore';
+import Userstore from '../../helix/helixUserstore';
 
 const Auth =
 {
@@ -10,6 +10,9 @@ const Auth =
                 console.log(data);
                 this.saveItem('access-token', data.access_token);
                 this.saveItem('access-exp', decode(data.access_token).exp);
+                this.saveItem('user', decode(data.access_token).user);
+                this.saveItem('user_uuid', decode(data.access_token).user_uuid);
+                this.saveItem('person_uuid', decode(data.access_token).person_uuid);
                 this.saveItem('refresh-token', data.refresh_token);
                 this.saveItem('refresh-exp', decode(data.refresh_token).exp);
 
@@ -59,6 +62,10 @@ const Auth =
         sessionStorage.removeItem('access-exp');
         sessionStorage.removeItem('refresh-token');
         sessionStorage.removeItem('refresh-exp');
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('user_uuid');
+        sessionStorage.removeItem('person_uuid');
     },
+
 }
 export default Auth;

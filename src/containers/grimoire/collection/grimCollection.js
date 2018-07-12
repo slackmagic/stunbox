@@ -3,9 +3,9 @@ import GrimNav from '../components/grimNav';
 import GrimHeader from "../components/grimHeader";
 import { Container, Loader, Segment, Dimmer, Form, Grid, Dropdown, Label } from 'semantic-ui-react';
 import SaveMessage from "../../../components/saveMsg";
-import Itemstore from "../../../utils/helix/helixItemstore";
-import Userstore from "../../../utils/helix/helixUserstore";
-import Formatter from "../../../utils/helix/helixFormatter";
+import Itemstore from "../../../services/helix/helixItemstore";
+import Userstore from "../../../services/helix/helixUserstore";
+import Formatter from "../../../services/helix/helixFormatter";
 import 'react-table/react-table.css';
 
 class GrimoireCollection extends React.Component {

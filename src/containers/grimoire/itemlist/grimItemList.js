@@ -4,7 +4,7 @@ import GrimNav from "../components/grimNav";
 import GrimHeader from "../components/grimHeader";
 import GrimCardList from "./grimItemListCards";
 import { Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react';
-import Itemstore from "../../../utils/helix/helixItemstore";
+import Itemstore from "../../../services/helix/helixItemstore";
 
 import "react-table/react-table.css";
 
@@ -69,7 +69,7 @@ class GrimoireItemList extends React.Component {
                         <Grid.Row>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />
                             <Grid.Column mobile={16} tablet={14} computer={14}>
-                                <GrimBar supports={this.state.supports} onChange={this.navChange} />
+                                <GrimBar collection={this.state.collection.uuid} supports={this.state.supports} onChange={this.navChange} />
                                 <Dimmer.Dimmable as={Segment} dimmed={this.state.isLoading}>
                                     <Dimmer onClickOutside={this.handleHide} active={this.state.isLoading} inverted>
                                         <Loader size='huge' inverted>Chargement</Loader>

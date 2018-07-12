@@ -1,7 +1,12 @@
 import React from 'react';
 import { Menu, Input, Label, Dropdown, Button, Icon } from 'semantic-ui-react'
+import PropTypes from 'prop-types'
 
 class GrimNav extends React.Component {
+
+    static contextTypes = {
+        router: PropTypes.object
+    }
 
     state = { activeItem: 'all', activeName: 'Tous' }
 
@@ -10,6 +15,11 @@ class GrimNav extends React.Component {
         this.setState({ activeItem: name })
         this.setState({ activeName: displayname })
         this.props.onChange(name);
+    }
+
+    handleAddNewClick = (e) => {
+        e.preventDefault();
+        this.context.router.history.push(`/grimoire/item/new/` + this.props.collection);
     }
 
     onNameChange = (e) => {
@@ -29,7 +39,7 @@ class GrimNav extends React.Component {
                     <Input size='large' name='namefilter' action={{ icon: 'search' }} placeholder='Recherche par titre...' onChange={this.onNameChange} />
                 </Menu.Item>
                 <Menu.Item>
-                    <Button icon labelPosition='left' >
+                    <Button icon labelPosition='left' onClick={this.handleAddNewClick} >
                         <Icon name='plus' />
                         Ajouter nouveau
                     </Button>

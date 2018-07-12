@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
-import Auth from '../../utils//auth/auth';
+import Auth from '../../services/stunbox/auth/auth';
 import AppHeader from "../../components/header/Header";
 import { Grid, Form, Segment, Input, Button, Header, Icon } from 'semantic-ui-react';
 import '../../css/signin.css';
