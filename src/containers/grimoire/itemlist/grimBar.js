@@ -31,7 +31,6 @@ class GrimNav extends React.Component {
     render() {
         const { activeItem } = this.state;
         const { activeName } = this.state;
-
         return (
 
             <Menu pointing fluid stackable>

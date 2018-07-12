@@ -3,7 +3,7 @@ import { Card, Label } from 'semantic-ui-react'
 import Formatter from "../../../services/helix/helixFormatter";
 import 'react-table/react-table.css';
 
-class GrimoireItemListCard extends React.Component {
+class GrimoireItemCardList extends React.Component {
 
     render() {
         const myData = [].concat(this.props.items)
@@ -16,6 +16,9 @@ class GrimoireItemListCard extends React.Component {
             gamePS3: 'teal',
         };
 
+        console.log("-------------------------------");
+        console.log(this.props);
+        console.log(this.props.users);
         return (
             <Card.Group itemsPerRow={4} stackable>
                 {
@@ -29,10 +32,12 @@ class GrimoireItemListCard extends React.Component {
                                 </Card.Description>
                             </Card.Content>
                             <Card.Content extra>
-
-                                <Label size='tiny' color={options[item.support_id]} horizontal>{item.support_id}</Label>
-                                <Label color='grey' size='tiny' horizontal basic>Laurent</Label>
-                                <Label color='grey' size='tiny' horizontal basic>Laure</Label>
+                                <Label size='mini' color={options[item.support_id]} horizontal>{this.props.supports[item.support_id]}</Label>
+                                {
+                                    item.owners.map(owner =>
+                                        <Label color='grey' size='mini' horizontal basic key={owner}>{this.props.users[owner]}</Label>
+                                    )
+                                }
                             </Card.Content>
                         </Card>)
                 }
@@ -41,4 +46,4 @@ class GrimoireItemListCard extends React.Component {
     }
 }
 
-export default GrimoireItemListCard;
+export default GrimoireItemCardList;;

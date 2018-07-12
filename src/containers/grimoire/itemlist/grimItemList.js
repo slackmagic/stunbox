@@ -1,10 +1,13 @@
 import React from 'react';
+import { Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react';
+import Formatter from "../../../services/helix/helixFormatter";
+import Itemstore from "../../../services/helix/helixItemstore";
+import Userstore from "../../../services/helix/helixUserstore";
 import GrimBar from "./grimBar";
 import GrimNav from "../components/grimNav";
 import GrimHeader from "../components/grimHeader";
-import GrimCardList from "./grimItemListCards";
-import { Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react';
-import Itemstore from "../../../services/helix/helixItemstore";
+import GrimCardList from "./grimItemCardList";
+import GrimItemModal from "./grimItemModal";
 
 import "react-table/react-table.css";
 
@@ -14,6 +17,7 @@ class GrimoireItemList extends React.Component {
         isLoading: true,
         supports: [],
         items: [],
+        users: [],
         collection: {},
         currentCollection: this.props.match.params.collid,
         currentType: this.props.match.params.typeid,
@@ -28,6 +32,9 @@ class GrimoireItemList extends React.Component {
 
                     Itemstore.supportsByType(data.type_id)
                         .then(data => this.setState({ supports: data }));
+
+                    Userstore.userList()
+                        .then(data => this.setState({ users: data }));
                 });
         }
 
@@ -75,7 +82,8 @@ class GrimoireItemList extends React.Component {
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
                                     <br />
-                                    <GrimCardList items={this.state.items} supports={this.state.supports} />
+                                    <GrimItemModal />
+                                    <GrimCardList items={this.state.items} supports={Formatter.supportToHashmap(this.state.supports)} users={Formatter.userToHashmap(this.state.users)} />
                                 </Dimmer.Dimmable>
                             </Grid.Column>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />

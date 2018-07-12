@@ -5,10 +5,7 @@ import {
   Route
 } from 'react-router-dom';
 
-//import './css/index.css';
-//import './css/bootstrap.lumen.css';
 import './semantic/dist/semantic.min.css'
-//import 'bootstrap/dist/css/bootstrap.min.css';
 
 import PrivateRoute from './services/stunbox/auth/privateRoute';
 import registerServiceWorker from './registerServiceWorker';
@@ -22,7 +19,6 @@ import GrimoireItem from './containers/grimoire/itemlist/grimItem';
 import GrimoireCollection from './containers/grimoire/collection/grimCollection';
 import MainApp from './containers/main/main';
 import History from './services/stunbox/history/history'
-
 
 ReactDOM.render(
   <Router history={History}>

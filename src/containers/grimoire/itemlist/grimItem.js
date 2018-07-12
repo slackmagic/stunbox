@@ -1,8 +1,9 @@
 import React from 'react';
 import _ from 'lodash'
+import PropTypes from 'prop-types'
 import GrimNav from '../components/grimNav';
 import GrimHeader from "../components/grimHeader";
-import { Container, Loader, Segment, Dimmer, Form, Grid, Search, Label, Dropdown } from 'semantic-ui-react';
+import { Container, Loader, Segment, Dimmer, Form, Grid, Search, Label, Dropdown, Button } from 'semantic-ui-react';
 import SaveMessage from "../../../components/saveMsg";
 import Itemstore from "../../../services/helix/helixItemstore";
 import Userstore from "../../../services/helix/helixUserstore";
@@ -13,6 +14,10 @@ import "react-table/react-table.css";
 import "../../../css/background.css";
 
 class GrimoireItem extends React.Component {
+
+    static contextTypes = {
+        router: PropTypes.object
+    }
 
     state = {
         isLoading: true,
@@ -147,6 +152,11 @@ class GrimoireItem extends React.Component {
         }, 300);
     }
 
+    onBack = (e) => {
+        e.preventDefault();
+        this.context.router.history.push(`/grimoire/collection/read/` + this.state.collection.uuid);
+    }
+
     onSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
@@ -241,7 +251,10 @@ class GrimoireItem extends React.Component {
                                         <Form.TextArea name='comment' label='Commentaire' placeholder='Commentaire' value={this.state.item.comment || ''} onChange={this.onItemChange} />
                                     </Form>
                                     <br />
-                                    <Form.Button type='submit' onClick={this.onSubmit}>Modifier</Form.Button>
+                                    <div>
+                                        <Button type='submit' onClick={this.onSubmit} primary>Modifier</Button>
+                                        <Button onClick={this.onBack}>Retour à la collection</Button>
+                                    </div>
                                 </Dimmer.Dimmable>
                             </Grid.Column>
                             <Grid.Column computer={3} tablet={3} only='computer tablet' />

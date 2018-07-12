@@ -39,6 +39,10 @@ const HelixFormatter = {
         return list.reduce((map, obj) => { map[obj.id] = obj.name; return map; }, {});
     },
 
+    supportToHashmap(list) {
+        return list.reduce((map, obj) => { map[obj.id] = obj.name; return map; }, {});
+    },
+
     userToDropdown(list) {
         return list.map(
             obj => {
@@ -49,6 +53,10 @@ const HelixFormatter = {
                 return rObj;
             }
         );
+    },
+
+    userToHashmap(list) {
+        return list.reduce((map, obj) => { map[obj.person.uuid] = obj.login; return map; }, {});
     },
 
     collectionToDropdown(list) {
