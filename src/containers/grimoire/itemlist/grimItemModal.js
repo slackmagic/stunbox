@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Header, Modal } from 'semantic-ui-react';
+import { Header, Modal } from 'semantic-ui-react';
 
 const inlineStyle = {
     modal: {
@@ -11,19 +11,28 @@ const inlineStyle = {
 
 class grimItemModal extends React.Component {
 
+    handleModalClose = (e) => {
+        e.preventDefault();
+        this.props.onClose(e);
+    }
+
     render() {
-        return (
-            <Modal trigger={<Button>Basic Modal</Button>} defaultOpen={true} size="large" style={inlineStyle.modal} >
-                <Modal.Header>Select a Photo</Modal.Header>
-                <Modal.Content>
-                    <Modal.Description>
-                        <Header>Default Profile Image</Header>
-                        <p>We've found the following gravatar image associated with your e-mail address.</p>
-                        <p>Is it okay to use this photo?</p>
-                    </Modal.Description>
-                </Modal.Content>
-            </Modal>
-        )
+        if (this.props.item !== undefined) {
+
+            return (
+                <Modal defaultOpen={true} size="large" style={inlineStyle.modal} onClose={this.handleModalClose}>
+                    <Modal.Header>{this.props.item.reference.name}</Modal.Header>
+                    <Modal.Content>
+                        <Modal.Description>
+                            <Header></Header>
+                        </Modal.Description>
+                    </Modal.Content>
+                </Modal>
+            )
+        }
+        else {
+            return ("")
+        }
     }
 }
 

@@ -5,6 +5,12 @@ import 'react-table/react-table.css';
 
 class GrimoireItemCardList extends React.Component {
 
+    handleItemClick = (e, data) => {
+        e.preventDefault();
+        this.props.onChange(data.item);
+    }
+
+
     render() {
         const myData = [].concat(this.props.items)
             .sort((a, b) => a.reference.name.toLowerCase().localeCompare(b.reference.name.toLowerCase()));
@@ -16,20 +22,15 @@ class GrimoireItemCardList extends React.Component {
             gamePS3: 'teal',
         };
 
-        console.log("-------------------------------");
-        console.log(this.props);
-        console.log(this.props.users);
         return (
-            <Card.Group itemsPerRow={4} stackable>
+            <Card.Group itemsPerRow={3} stackable>
                 {
                     myData.map(item =>
-                        <Card href={"../../item/edit/" + item.uuid} color={options[item.support_id]} key={item.id}>
-                            < Card.Content >
+                        <Card onClick={this.handleItemClick} color={options[item.support_id]} item={item} key={item.uuid}>
+                            <Card.Content >
                                 <Card.Header>{item.reference.name}</Card.Header>
                                 <Card.Meta>{Formatter.dateToText(item.created_on, "créée le ")}</Card.Meta>
-                                <Card.Description>
 
-                                </Card.Description>
                             </Card.Content>
                             <Card.Content extra>
                                 <Label size='mini' color={options[item.support_id]} horizontal>{this.props.supports[item.support_id]}</Label>
