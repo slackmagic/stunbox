@@ -11,28 +11,36 @@ const inlineStyle = {
 
 class grimItemModal extends React.Component {
 
+
+    state = {
+        item: { reference: {} },
+    }
+
     handleModalClose = (e) => {
         e.preventDefault();
         this.props.onClose(e);
     }
 
-    render() {
-        if (this.props.item !== undefined) {
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({ item: nextProps.item });
+    }
 
-            return (
-                <Modal defaultOpen={true} size="large" style={inlineStyle.modal} onClose={this.handleModalClose}>
-                    <Modal.Header>{this.props.item.reference.name}</Modal.Header>
-                    <Modal.Content>
-                        <Modal.Description>
-                            <Header></Header>
-                        </Modal.Description>
-                    </Modal.Content>
-                </Modal>
-            )
-        }
-        else {
-            return ("")
-        }
+    shouldComponentUpdate = (nextProps, nextState) => {
+        return nextProps.item !== undefined;
+    }
+
+    render() {
+        console.log(this.state);
+        return (
+            <Modal size="large" style={inlineStyle.modal} open={this.props.open} onClose={this.handleModalClose}>
+                <Modal.Header>{this.state.item.reference.name}</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        <Header></Header>
+                    </Modal.Description>
+                </Modal.Content>
+            </Modal>
+        )
     }
 }
 

@@ -15,6 +15,7 @@ class GrimoireItemList extends React.Component {
 
     state = {
         isLoading: true,
+        isModalOpen: false,
         activeItem: undefined,
         supports: [],
         items: [],
@@ -68,13 +69,12 @@ class GrimoireItemList extends React.Component {
 
     cardChange = (data) => {
         if (data !== undefined)
-            this.setState({ activeItem: data });
+            this.setState({ activeItem: data, isModalOpen: true });
     }
 
     modalClose = (e) => {
         e.preventDefault();
-        //if (this.state.activeItem !== undefined)
-        //this.setState({ activeItem: undefined });
+        this.setState({ isModalOpen: false });
     }
 
     render() {
@@ -94,7 +94,7 @@ class GrimoireItemList extends React.Component {
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
                                     <br />
-                                    <GrimItemModal item={this.state.activeItem} onClose={this.modalClose} />
+                                    <GrimItemModal item={this.state.activeItem} open={this.state.isModalOpen} onClose={this.modalClose} />
                                     <GrimCardList items={this.state.items} supports={Formatter.supportToHashmap(this.state.supports)} users={Formatter.userToHashmap(this.state.users)} onChange={this.cardChange} />
                                 </Dimmer.Dimmable>
                             </Grid.Column>
