@@ -1,18 +1,18 @@
 import HelixInteractor from './helixInteractor';
 
-const SUPPORTS_BY_TYPE = "/api/itemstore/support/bytype/";
-const TYPE_BY_ID = "/api/itemstore/type/";
-const ITEM_ADD = "/api/itemstore/item";
-const ITEM_BY_TYPE = "/api/itemstore/item/bytype/";
-const ITEM_BY_SUPPORT = "/api/itemstore/item/bysupport/";
-const ITEM_BY_COLLECTION = "/api/itemstore/item/bycollection/";
-const COLLECTION_LIST = "/api/itemstore/collection/all";
-const TYPE_LIST = "/api/itemstore/type/all";
-const ITEM_BY_UUID = "/api/itemstore/item/";
-const COLLECTION_BY_UUID = "/api/itemstore/collection/";
-const COLLECTION_ADD = "/api/itemstore/collection";
-const REFERENCE_SEARCH = "/api/itemstore/reference/search/";
-const REFERENCE_ADD = "/api/itemstore/reference";
+const SUPPORTS_BY_TYPE = "/api/itemstore/supports/bytype/";
+const TYPE_BY_ID = "/api/itemstore/types/";
+const ITEM_ADD = "/api/itemstore/items";
+const ITEM_BY_TYPE = "/api/itemstore/items/bytype/";
+const ITEM_BY_SUPPORT = "/api/itemstore/items/bysupport/";
+const ITEM_BY_COLLECTION = "/api/itemstore/items/bycollection/";
+const COLLECTION_LIST = "/api/itemstore/collections";
+const TYPE_LIST = "/api/itemstore/types";
+const ITEM_BY_UUID = "/api/itemstore/items/";
+const COLLECTION_BY_UUID = "/api/itemstore/collections/";
+const COLLECTION_ADD = "/api/itemstore/collections";
+const REFERENCE_SEARCH = "/api/itemstore/references/search/";
+const REFERENCE_ADD = "/api/itemstore/references";
 
 const HelixItemstore = {
 

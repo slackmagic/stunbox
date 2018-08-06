@@ -1,6 +1,6 @@
 import HelixInteractor from './helixInteractor';
-const LOGIN = "/api/userstore/user/login";
-const USER_LIST = "/api/userstore/user/all";
+const LOGIN = "/api/userstore/login";
+const USER_LIST = "/api/userstore/users";
 
 const HelixUserstore = {
 
