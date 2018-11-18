@@ -135,7 +135,7 @@ class GrimoireItem extends React.Component {
     onSearchRefChange = (e, data) => {
         e.preventDefault();
         const itemToUpdate = this.state.item;
-        itemToUpdate['reference'] = { id: -1, name: data.value, type_id: this.state.currentType };
+        itemToUpdate['reference'] = { id: -1, name: data.value, type_id: this.state.collection.type_id };
         this.setState({ isSearchLoading: true, searchResults: [], item: itemToUpdate, currentSearch: data.value });
         console.log(this.state);
 
@@ -166,8 +166,11 @@ class GrimoireItem extends React.Component {
         //__REFERENCE PART
         if (this.state.item.reference.uuid === undefined) {
             //Create new reference
+
             Itemstore.newReference(this.state.item.reference)
                 .then(data => {
+                    console.log("reference data retrieve");
+                    console.log(data);
                     const itemToUpdate = this.state.item;
                     itemToUpdate['reference'] = data;
                     this.setState({ item: itemToUpdate, isUpdated: true })
