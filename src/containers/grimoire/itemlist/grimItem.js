@@ -34,7 +34,8 @@ class GrimoireItem extends React.Component {
             id: -1,
             reference: {},
             owned_by: [StunboxService.getMyPersonUUID()],
-            contained_by: [this.props.match.params.collid]
+            contained_by: [this.props.match.params.collid],
+            is_collector_edition: false
         },
         supportList: [],
         typeList: [],
