@@ -1,11 +1,11 @@
 import HelixInteractor from './helixInteractor';
 
-const SUPPORTS_BY_TYPE = "/api/itemstore/supports/bytype/";
+const SUPPORTS_BY_TYPE = "/api/itemstore/supports/by-type/";
 const TYPE_BY_ID = "/api/itemstore/types/";
 const ITEM_ADD = "/api/itemstore/items";
-const ITEM_BY_TYPE = "/api/itemstore/items/bytype/";
-const ITEM_BY_SUPPORT = "/api/itemstore/items/bysupport/";
-const ITEM_BY_COLLECTION = "/api/itemstore/items/bycollection/";
+const ITEM_BY_TYPE = "/api/itemstore/items/by-type/";
+const ITEM_BY_SUPPORT = "/api/itemstore/items/by-support/";
+const ITEM_BY_COLLECTION = "/api/itemstore/items/by-collection/";
 const COLLECTION_LIST = "/api/itemstore/collections";
 const TYPE_LIST = "/api/itemstore/types";
 const ITEM_BY_UUID = "/api/itemstore/items/";
