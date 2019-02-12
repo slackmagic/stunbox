@@ -1,6 +1,6 @@
 import React from 'react';
 import Formatter from "../../../services/helix/helixFormatter";
-import MemEditor from "../components/memEditor";
+import MemEditor from "../components/memEditorHtml";
 import { Modal, Container, Header, Divider, Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
@@ -27,6 +27,13 @@ class memEntryModal extends React.Component {
         this.props.onClose(e);
     }
 
+    handleEditorChange = (value) => {
+        var updatedEntry = this.state.entry;
+        updatedEntry.content = value;
+
+        this.setState({ entry: updatedEntry });
+    }
+
     componentWillReceiveProps = (nextProps) => {
         this.setState({ entry: nextProps.item });
     }
@@ -42,22 +49,10 @@ class memEntryModal extends React.Component {
             <Modal style={inlineStyle.modal} open={this.props.open} onClose={this.handleModalClose}>
                 <Modal.Content>
                     <Container fluid>
-                        <Form>
-                            <Header as='h2'>
-                                <Form.Input fluid placeholder='Titre' value={this.state.entry.title} />
-                                <Header.Subheader> {Formatter.dateToText(this.state.entry.created_on, "créée le ")}</Header.Subheader>
-                            </Header>
-
-                        </Form>
-                        <MemEditor />
                         <Divider />
-                        {this.state.entry.content}
-                        <div id='here'></div>
+                        <MemEditor value={this.state.entry.content} onChange={this.handleEditorChange} />
                         <Divider />
-
                     </Container>
-
-
                 </Modal.Content>
 
             </Modal >

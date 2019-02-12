@@ -14,6 +14,7 @@
     "semantic-ui": "^2.4.2",
     "semantic-ui-react": "^0.80.2",
     "slate": "^0.44.10",
+    "slate-html-serializer": "^0.7.34",
     "slate-paste-linkify": "^0.7.0",
     "slate-react": "^0.21.16"
   },

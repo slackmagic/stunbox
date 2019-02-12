@@ -20,8 +20,7 @@ class MemorizEntryCardList extends React.Component {
                     this.props.entryList.map(entry =>
                         <Card onClick={this.handleEntryClick} item={entry} key={entry.uuid}>
                             <Card.Content >
-                                <Card.Header>{entry.title}</Card.Header>
-                                <Card.Meta>{Formatter.dateToText(entry.created_on, "créée le ")}</Card.Meta>
+                                <Card.Meta></Card.Meta>
                                 <Card.Description>{Formatter.textTruncate(entry.content)}</Card.Description>
                             </Card.Content>
                             <Card.Content extra>

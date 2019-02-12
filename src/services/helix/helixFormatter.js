@@ -1,4 +1,3 @@
-
 const HelixFormatter = {
 
     textTruncate(text, size = 140) {
