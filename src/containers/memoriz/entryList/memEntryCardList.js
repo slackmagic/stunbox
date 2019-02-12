@@ -23,7 +23,7 @@ class MemorizEntryCardList extends React.Component {
             <Card.Group itemsPerRow={5} stackable>
                 {
                     this.props.entryList.map(entry =>
-                        <Card onClick={this.handleEntryClick} item={entry} key={entry.uuid}>
+                        <Card onClick={this.handleEntryClick} item={entry} key={entry.uuid} color="yellow">
                             <Card.Content >
                                 <Card.Meta></Card.Meta>
                                 <Card.Description>
