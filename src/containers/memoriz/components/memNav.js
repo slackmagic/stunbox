@@ -10,13 +10,12 @@ class MemorizHeader extends React.Component {
     }
 
     render() {
-
         return (
-
             <Grid fluid="true">
                 <Grid.Row columns={16} only='computer tablet' fluid="true">
                     <Menu color='brown' fluid stackable  >
                         <Menu.Item header><span role="img" aria-label="Stunbox"></span>&nbsp;STUNBOX.Memoriz</Menu.Item>
+                        <Menu.Item><Button color='green'>Nouveau</Button></Menu.Item>
                         <Menu.Menu position='right'>
                             <Menu.Item href='login'><Button color='yellow'>Se déconnecter</Button></Menu.Item>
                         </Menu.Menu>

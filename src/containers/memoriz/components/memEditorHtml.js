@@ -45,7 +45,7 @@ const rules = [
             }
         },
         serialize(obj, children) {
-            if (obj.object == 'block') {
+            if (obj.object === 'block') {
                 switch (obj.type) {
                     case 'code':
                         return (
@@ -57,6 +57,8 @@ const rules = [
                         return <p className={obj.data.get('className')}>{children}</p>
                     case 'quote':
                         return <blockquote>{children}</blockquote>
+                    default:
+                        return ""
                 }
             }
         },
@@ -74,7 +76,7 @@ const rules = [
             }
         },
         serialize(obj, children) {
-            if (obj.object == 'mark') {
+            if (obj.object === 'mark') {
                 switch (obj.type) {
                     case 'bold':
                         return <strong>{children}</strong>
@@ -84,6 +86,8 @@ const rules = [
                         return <u>{children}</u>
                     case 'link':
                         return "a link"
+                    default:
+                        return ""
                 }
             }
         },
@@ -115,7 +119,7 @@ function MarkHotkey(options) {
     return {
         onKeyDown(event, editor, next) {
             // If it doesn't match our `key`, let other plugins handle it.
-            if (!event.ctrlKey || event.key != key) return next()
+            if (!event.ctrlKey || event.key !== key) return next()
 
             // Prevent the default characters from being inserted.
             event.preventDefault()
@@ -133,7 +137,7 @@ function BlockHotkey(options) {
     return {
         onKeyDown(event, editor, next) {
             // If it doesn't match our `key`, let other plugins handle it.
-            if (!event.ctrlKey || event.key != key) return next()
+            if (!event.ctrlKey || event.key !== key) return next()
 
             // Prevent the default characters from being inserted.
             event.preventDefault()
@@ -149,14 +153,14 @@ const html = new Html({ rules })
 class memEditorHtml extends React.Component {
     state = {
         //value: html.deserialize("<p>Mon texte en <strong>GRAS</strong></p><p>Mon texte en <em>italique</em></p><p>Mon texte en <u>souligné</u></p><p><u><strong><em>ALL OF THAT</em></strong></u></p>"),
-        value: Plain.deserialize(this.props.value),
+        value: html.deserialize(this.props.value),
     }
 
     onChange = ({ value }) => {
         // When the document changes, save the serialized HTML to Local Storage.
-        if (value.document != this.state.value.document) {
+        if (value.document !== this.state.value.document) {
             console.log(Plain.serialize(value));
-            this.props.onChange(Plain.serialize(value));
+            this.props.onChange(html.serialize(value));
         }
 
         this.setState({ value })

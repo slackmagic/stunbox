@@ -1,5 +1,9 @@
 const HelixFormatter = {
 
+    htmlToRaw(text) {
+        return text.replace(/(<([^>]+)>)/ig, "");
+    },
+
     textTruncate(text, size = 140) {
         return text.substring(0, size);
     },

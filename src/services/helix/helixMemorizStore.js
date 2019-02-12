@@ -12,5 +12,9 @@ const HelixMemorizStore = {
         return HelixInteractor.postWithAuth(ENTRY_ADD, JSON.stringify(entry));
     },
 
+    updateEntry(entry, callback) {
+        return HelixInteractor.putWithAuth(ENTRY_ADD, JSON.stringify(entry));
+    },
+
 }
 export default HelixMemorizStore;

@@ -11,9 +11,7 @@ class MemorizEntryCardList extends React.Component {
         this.props.onChange(data.item);
     }
 
-
     render() {
-
         return (
             <Card.Group itemsPerRow={5} stackable>
                 {
@@ -21,11 +19,12 @@ class MemorizEntryCardList extends React.Component {
                         <Card onClick={this.handleEntryClick} item={entry} key={entry.uuid}>
                             <Card.Content >
                                 <Card.Meta></Card.Meta>
-                                <Card.Description>{Formatter.textTruncate(entry.content)}</Card.Description>
+                                <Card.Description>{Formatter.htmlToRaw(Formatter.textTruncate(entry.content))}</Card.Description>
                             </Card.Content>
                             <Card.Content extra>
                                 <Label size='mini' color='yellow' horizontal>label</Label>
-                                {Formatter.dateToText(entry.created_on, "créée le ")}
+                                <Label size='mini' horizontal>{Formatter.dateToText(entry.created_on, "créé le ")}</Label>
+
                             </Card.Content>
 
                         </Card>)
