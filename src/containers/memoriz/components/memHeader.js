@@ -2,11 +2,11 @@ import React from 'react';
 import { Header, Grid, Icon } from 'semantic-ui-react';
 import "../../../css/background.css";
 
-class GrimoireHeader extends React.Component {
+class MemorizHeader extends React.Component {
     render() {
         return (
             <Grid fluid="true">
-                <Grid.Row className='headerBgGrimoire heightbg'>
+                <Grid.Row className='headerBgMemoriz heightbg'>
                     <Grid.Column computer={1} tablet={1} only='computer tablet' />
                     <Grid.Column mobile={16} tablet={14} computer={14}>
                         <Header as='h3' className='headerFont' inverted>
@@ -24,4 +24,4 @@ class GrimoireHeader extends React.Component {
     }
 }
 
-export default GrimoireHeader;
+export default MemorizHeader;

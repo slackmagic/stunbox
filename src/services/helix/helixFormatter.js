@@ -1,6 +1,10 @@
 
 const HelixFormatter = {
 
+    textTruncate(text, size = 140) {
+        return text.substring(0, size);
+    },
+
     dateToText(time, prefix = "") {
         if (time !== undefined) {
             var date = new Date(time) // returns NaN if it can't parse

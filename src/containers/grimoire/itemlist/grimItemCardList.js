@@ -47,4 +47,4 @@ class GrimoireItemCardList extends React.Component {
     }
 }
 
-export default GrimoireItemCardList;;
+export default GrimoireItemCardList;

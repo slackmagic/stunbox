@@ -19,6 +19,7 @@ import GrimoireItem from './containers/grimoire/itemlist/grimItem';
 import GrimoireCollection from './containers/grimoire/collection/grimCollection';
 import MainApp from './containers/main/main';
 import History from './services/stunbox/history/history'
+import MemorizDashboard from './containers/memoriz/memDashboard';
 
 ReactDOM.render(
   <Router history={History}>
@@ -34,6 +35,9 @@ ReactDOM.render(
       <PrivateRoute exact path='/grimoire/collection/new' component={GrimoireCollection} />
       <PrivateRoute exact path='/grimoire/collection/edit/:collid' component={GrimoireCollection} />
       <PrivateRoute exact path='/grimoire/collection/read/:collid' component={GrimoireItems} />
+
+      <PrivateRoute exact path='/memoriz' component={MemorizDashboard} />
+
       <PrivateRoute exact path='/usermgr' component={Users} />
       <PrivateRoute path='/usermgr/:uuid' component={UserDetail} />
     </div>
