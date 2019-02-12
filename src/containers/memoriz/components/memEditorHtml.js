@@ -32,7 +32,7 @@ const MARK_TAGS = {
 const rules = [
     {
         deserialize(el, next) {
-            const type = BLOCK_TAGS[el.tagName.toLowerCase()]
+            var type = BLOCK_TAGS[el.tagName.toLowerCase()]
             if (type) {
                 return {
                     object: 'block',
@@ -40,6 +40,15 @@ const rules = [
                     data: {
                         className: el.getAttribute('class'),
                     },
+                    nodes: next(el.childNodes),
+                }
+            }
+
+            var type = MARK_TAGS[el.tagName.toLowerCase()]
+            if (type) {
+                return {
+                    object: 'mark',
+                    type: type,
                     nodes: next(el.childNodes),
                 }
             }
@@ -57,25 +66,13 @@ const rules = [
                         return <p className={obj.data.get('className')}>{children}</p>
                     case 'quote':
                         return <blockquote>{children}</blockquote>
+                    case 'link':
+                        return <a href={children}>{children}</a>
                     default:
                         return ""
                 }
             }
-        },
-    },
-    // Add a new rule that handles marks...
-    {
-        deserialize(el, next) {
-            const type = MARK_TAGS[el.tagName.toLowerCase()]
-            if (type) {
-                return {
-                    object: 'mark',
-                    type: type,
-                    nodes: next(el.childNodes),
-                }
-            }
-        },
-        serialize(obj, children) {
+
             if (obj.object === 'mark') {
                 switch (obj.type) {
                     case 'bold':
@@ -85,13 +82,22 @@ const rules = [
                     case 'underline':
                         return <u>{children}</u>
                     case 'link':
-                        return "a link"
+                        return <a href={children}>{children}</a>
+                    default:
+                        return ""
+                }
+            }
+
+            if (obj.object === 'inline') {
+                switch (obj.type) {
+                    case 'link':
+                        return <a href={children.get(0).get(0)}>{children}</a>
                     default:
                         return ""
                 }
             }
         },
-    },
+    }
 ]
 
 const commands = {
@@ -159,7 +165,6 @@ class memEditorHtml extends React.Component {
     onChange = ({ value }) => {
         // When the document changes, save the serialized HTML to Local Storage.
         if (value.document !== this.state.value.document) {
-            console.log(Plain.serialize(value));
             this.props.onChange(html.serialize(value));
         }
 

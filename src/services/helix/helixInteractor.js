@@ -53,8 +53,6 @@ const HelixInteractor = {
 
     post(url, json, callback) {
 
-        console.log(url);
-        console.log(json);
         return fetch(url,
             {
                 method: "POST",
@@ -75,8 +73,6 @@ const HelixInteractor = {
 
     postWithAuth(url, json, callback) {
         this.init();
-        console.log(url);
-        console.log(json);
         return fetch(url,
             {
                 method: "POST",
@@ -97,9 +93,6 @@ const HelixInteractor = {
     },
 
     put(url, json, callback) {
-
-        console.log(url);
-        console.log(json);
         return fetch(url,
             {
                 method: "PUT",
@@ -120,8 +113,6 @@ const HelixInteractor = {
 
     putWithAuth(url, json, callback) {
         this.init();
-        console.log(url);
-        console.log(json);
         return fetch(url,
             {
                 method: "PUT",

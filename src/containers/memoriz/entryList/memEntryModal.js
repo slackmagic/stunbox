@@ -55,13 +55,11 @@ class memEntryModal extends React.Component {
     }
 
     render() {
-
-        console.log(this.state);
         return (
             <Modal style={inlineStyle.modal} open={this.props.open} onClose={this.handleModalClose}>
                 <Modal.Content>
                     <Container fluid>
-                        <Input icon='sticky note' iconPosition='left' transparent placeholder='Titre (facultatif)' name='title' size='large' value={this.state.entry.title || ''} onChange={this.onEntryChange} />
+                        <Input fluid icon='sticky note' iconPosition='left' transparent placeholder='Titre (facultatif)' name='title' size='large' value={this.state.entry.title || ''} onChange={this.onEntryChange} />
                         <Divider />
                         <MemEditor value={this.state.entry.content} onChange={this.handleEditorChange} />
                         <Divider />

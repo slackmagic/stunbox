@@ -25,6 +25,7 @@ class MemorizHeader extends React.Component {
                     <Menu color='violet' stackable fluid>
                         <Dropdown item text='&nbsp;STUNBOX.Memoriz'>
                             <Dropdown.Menu>
+                                <Menu.Item><Button color='green'>Nouveau</Button></Menu.Item>
                                 <Menu.Item href='login'><Button color='yellow'>Se déconnecter</Button></Menu.Item>
                             </Dropdown.Menu>
                         </Dropdown>
