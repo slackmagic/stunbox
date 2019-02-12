@@ -1,7 +1,8 @@
 import React from 'react';
 import Formatter from "../../../services/helix/helixFormatter";
-import { Modal, Container, Header, Divider } from 'semantic-ui-react';
-import PropTypes from 'prop-types'
+import MemEditor from "../components/memEditor";
+import { Modal, Container, Header, Divider, Form } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 const inlineStyle = {
     modal: {
@@ -41,12 +42,17 @@ class memEntryModal extends React.Component {
             <Modal style={inlineStyle.modal} open={this.props.open} onClose={this.handleModalClose}>
                 <Modal.Content>
                     <Container fluid>
-                        <Header as='h2'>
-                            {this.state.entry.title}
-                            <Header.Subheader> {Formatter.dateToText(this.state.entry.created_on, "créée le ")}</Header.Subheader>
-                        </Header>
+                        <Form>
+                            <Header as='h2'>
+                                <Form.Input fluid placeholder='Titre' value={this.state.entry.title} />
+                                <Header.Subheader> {Formatter.dateToText(this.state.entry.created_on, "créée le ")}</Header.Subheader>
+                            </Header>
+
+                        </Form>
+                        <MemEditor />
                         <Divider />
                         {this.state.entry.content}
+                        <div id='here'></div>
                         <Divider />
 
                     </Container>
