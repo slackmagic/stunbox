@@ -27,7 +27,8 @@ class memEntryModal extends React.Component {
     handleModalClose = (e) => {
         e.preventDefault();
         this.props.onClose(e);
-        MemorizStore.updateEntry(this.state.entry);
+        if (this.state.isUpdated)
+            MemorizStore.updateEntry(this.state.entry);
 
     }
 
@@ -35,7 +36,7 @@ class memEntryModal extends React.Component {
         e.preventDefault();
         const entryToUpdate = this.state.entry;
         entryToUpdate[data.name] = data.value;
-        this.setState({ entry: entryToUpdate, isUpdated: undefined });
+        this.setState({ entry: entryToUpdate, isUpdated: true });
     }
 
 
@@ -43,7 +44,7 @@ class memEntryModal extends React.Component {
         var entryToUpdate = this.state.entry;
         entryToUpdate.content = value;
 
-        this.setState({ entry: entryToUpdate });
+        this.setState({ entry: entryToUpdate, isUpdated: true });
     }
 
     componentWillReceiveProps = (nextProps) => {
