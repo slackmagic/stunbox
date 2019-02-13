@@ -34,9 +34,11 @@ class memEntryModal extends React.Component {
 
                 var entryToCreate = this.state.entry;
                 entryToCreate.owner = StunboxService.getMyUUID();
+                entryToCreate.data = {};
                 entryToCreate.archived = false;
                 entryToCreate.labels = [];
                 entryToCreate.id = -1;
+
                 this.setState({ entry: entryToCreate });
 
                 MemorizStore.newEntry(this.state.entry);
@@ -65,7 +67,7 @@ class memEntryModal extends React.Component {
 
     componentWillReceiveProps = (nextProps) => {
         this.setState({ entry: nextProps.item });
-        this.setState({ isCreation: nextProps.item === undefined })
+        this.setState({ isCreation: nextProps.item === undefined || nextProps.item.uuid === undefined })
 
     }
 
