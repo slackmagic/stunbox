@@ -1,7 +1,6 @@
 import React from 'react';
-import { Card, Label } from 'semantic-ui-react'
+import { Card, Label, Button } from 'semantic-ui-react'
 import Formatter from "../../../services/helix/helixFormatter";
-import 'react-table/react-table.css';
 
 function GetCardContent(props) {
     if (props.entry.title === "") {
@@ -25,14 +24,20 @@ class MemorizEntryCardList extends React.Component {
                     this.props.entryList.map(entry =>
                         <Card onClick={this.handleEntryClick} item={entry} key={entry.uuid} color="yellow">
                             <Card.Content >
-                                <Card.Meta></Card.Meta>
+                                <Card.Header><GetCardContent entry={entry} /></Card.Header>
+                                <Card.Meta>
+                                    {Formatter.dateToText(entry.created_on, "créé le ")}
+                                </Card.Meta>
                                 <Card.Description>
-                                    <GetCardContent entry={entry} />
+                                    <Label size='mini' color='yellow' horizontal>label</Label>
+                                    <Label size='mini' color='yellow' horizontal>label2</Label>
                                 </Card.Description>
                             </Card.Content>
-                            <Card.Content extra>
-                                <Label size='mini' color='yellow' horizontal>label</Label>
-                                <Label size='mini' horizontal>{Formatter.dateToText(entry.created_on, "créé le ")}</Label>
+                            <Card.Content extra textAlign='right'>
+                                <Button.Group size='mini' inverted >
+                                    <Button icon='copy' />
+                                    <Button icon='trash' />
+                                </Button.Group>
                             </Card.Content>
 
                         </Card>)
