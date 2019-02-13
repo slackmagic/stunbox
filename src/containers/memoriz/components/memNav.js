@@ -15,7 +15,6 @@ class MemorizHeader extends React.Component {
                 <Grid.Row columns={16} only='computer tablet' fluid="true">
                     <Menu color='brown' fluid stackable  >
                         <Menu.Item header><span role="img" aria-label="Stunbox"></span>&nbsp;STUNBOX.Memoriz</Menu.Item>
-                        <Menu.Item><Button color='green'>Nouveau</Button></Menu.Item>
                         <Menu.Menu position='right'>
                             <Menu.Item href='login'><Button color='yellow'>Se déconnecter</Button></Menu.Item>
                         </Menu.Menu>
@@ -25,7 +24,6 @@ class MemorizHeader extends React.Component {
                     <Menu color='violet' stackable fluid>
                         <Dropdown item text='&nbsp;STUNBOX.Memoriz'>
                             <Dropdown.Menu>
-                                <Menu.Item><Button color='green'>Nouveau</Button></Menu.Item>
                                 <Menu.Item href='login'><Button color='yellow'>Se déconnecter</Button></Menu.Item>
                             </Dropdown.Menu>
                         </Dropdown>

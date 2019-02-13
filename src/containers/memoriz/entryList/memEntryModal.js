@@ -1,5 +1,6 @@
 import React from 'react';
 import MemorizStore from "../../../services/helix/helixMemorizStore";
+import StunboxService from "../../../services/stunbox/stunboxService";
 import MemEditor from "../components/memEditorHtml";
 import Formatter from "../../../services/helix/helixFormatter";
 import { Modal, Container, Divider, Input, Label, Icon } from 'semantic-ui-react';
@@ -21,14 +22,29 @@ class memEntryModal extends React.Component {
 
     state = {
         entry: {},
+        isCreation: false,
         isUpdated: false,
     }
 
     handleModalClose = (e) => {
         e.preventDefault();
         this.props.onClose(e);
-        if (this.state.isUpdated)
-            MemorizStore.updateEntry(this.state.entry);
+        if (this.state.isUpdated) {
+            if (this.state.isCreation) {
+
+                var entryToCreate = this.state.entry;
+                entryToCreate.owner = StunboxService.getMyUUID();
+                entryToCreate.archived = false;
+                entryToCreate.labels = [];
+                entryToCreate.id = -1;
+                this.setState({ entry: entryToCreate });
+
+                MemorizStore.newEntry(this.state.entry);
+            }
+            else {
+                MemorizStore.updateEntry(this.state.entry);
+            }
+        }
 
     }
 
@@ -49,6 +65,8 @@ class memEntryModal extends React.Component {
 
     componentWillReceiveProps = (nextProps) => {
         this.setState({ entry: nextProps.item });
+        this.setState({ isCreation: nextProps.item === undefined })
+
     }
 
     shouldComponentUpdate = (nextProps, nextState) => {
