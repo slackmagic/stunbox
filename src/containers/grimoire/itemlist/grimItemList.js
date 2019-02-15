@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Segment, Dimmer, Loader, Grid } from 'semantic-ui-react';
+import { Container, Segment, Dimmer, Loader, Grid, Popup } from 'semantic-ui-react';
 import Formatter from "../../../services/helix/helixFormatter";
 import Itemstore from "../../../services/helix/helixItemstore";
 import Userstore from "../../../services/helix/helixUserstore";

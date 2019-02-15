@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Label, Button } from 'semantic-ui-react'
+import { Card, Label, Icon } from 'semantic-ui-react'
 import Formatter from "../../../services/helix/helixFormatter";
 import '../../../css/memCardList.css';
 import StackGrid, { transitions, easings } from "react-stack-grid";
@@ -18,11 +18,26 @@ const itemModifier = [
 
 
 function GetCardContent(props) {
+    let truncatedText = "";
     if (props.entry.title === "") {
-        return Formatter.htmlToRaw(Formatter.textTruncate(props.entry.content));
+        truncatedText = Formatter.htmlToRaw(Formatter.textTruncate(props.entry.content));
     } else {
-        return props.entry.title;
+        truncatedText = props.entry.title;
     }
+
+    //Adapt the font size
+    if (truncatedText.length > 20) {
+        truncatedText = <h4 > {truncatedText}</ h4>;
+    } else if (truncatedText.length > 15) {
+        truncatedText = <h3 >{truncatedText}</h3>;
+    } else if (truncatedText.length > 10) {
+        truncatedText = <h2>{truncatedText}</h2>;
+    } else {
+        truncatedText = <h1>{truncatedText}</h1>;
+    }
+
+
+    return truncatedText;
 }
 
 class MemorizEntryCardList extends React.Component {
@@ -30,14 +45,8 @@ class MemorizEntryCardList extends React.Component {
     constructor(props) {
         super(props);
 
-        const items = [];
-        for (let i = 0; i < 10; i += 1) {
-            items.push(this.createItem());
-        }
-
         this.state = {
             entryList: null,
-            items,
             duration: 480,
             columnWidth: 200,
             gutter: 15,
@@ -48,43 +57,37 @@ class MemorizEntryCardList extends React.Component {
 
     }
 
-    createItem() {
-        const id = Math.random().toString(36).substr(2, 9);
-        const height = Math.floor((Math.random() * (300 - 80)) + 80);
-        const modifier = itemModifier[Math.floor(Math.random() * itemModifier.length)];
+    handleEntryClick = (e, data, value) => {
+        e.preventDefault();
+        console.log(e.currentTarget);
+        this.props.onChange(data.item);
 
-        return { id, height, modifier };
     }
 
-
-    handleEntryClick = (e, data) => {
+    handleDeleteClick = (e, data, value) => {
         e.preventDefault();
+        console.log("DELETE THIS :", data.value);
+
         this.props.onChange(data.item);
+
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
         this.setState({ entryList: this.props.entryList });
 
     }
 
     componentDidUpdate(prevProps) {
-        console.log("componentDidUpdate");
         if (prevProps !== this.props) {
             this.setState({ entryList: this.props.entryList });
         }
     }
 
-
     shouldComponentUpdate(nextProps, nextState) {
-        console.log("shouldComponentUpdate");
         return nextProps.entryList !== undefined;
     }
 
     render() {
-        console.log("RENDER");
-        console.log(this.state)
-        console.log(this.props.entryList);
 
         const {
             duration,
@@ -114,24 +117,17 @@ class MemorizEntryCardList extends React.Component {
 
 
                 {this.props.entryList.map(entry =>
-                    <Card onClick={this.handleEntryClick} item={entry} key={entry.uuid} color="yellow">
-                        <Card.Content >
-                            <Card.Header><GetCardContent entry={entry} /></Card.Header>
-                            <Card.Meta>
-                                {Formatter.dateToText(entry.created_on, "créé le ")}
-                            </Card.Meta>
-                            <Card.Description>
-                                <Label size='mini' color='yellow' horizontal>label</Label>
-                                <Label size='mini' color='yellow' horizontal>label2</Label>
-                            </Card.Description>
+                    <Card item={entry} onClick={this.handleEntryClick} key={entry.uuid} value="update" color="yellow">
+                        <Card.Content>
+                            <Card.Header>
+
+                                <GetCardContent entry={entry} />
+
+                            </Card.Header>
                         </Card.Content>
                         <Card.Content extra textAlign='right'>
-                            <Button.Group size='mini' inverted >
-                                <Button icon='copy' />
-                                <Button icon='trash' />
-                            </Button.Group>
+                            <Label size='mini'><Icon name='clock' />{Formatter.dateToText(entry.created_on, "créé le ")}</Label>
                         </Card.Content>
-
                     </Card>)}
             </StackGrid>
 

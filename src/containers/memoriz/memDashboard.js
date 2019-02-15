@@ -18,6 +18,10 @@ class MemorizDashboard extends React.Component {
     }
 
     componentDidMount() {
+        this.refreshEntryList();
+    }
+
+    refreshEntryList() {
         MemorizStore.entryList()
             .then(data => this.setState({ entryList: data, isLoading: false }));
     }
@@ -29,7 +33,9 @@ class MemorizDashboard extends React.Component {
 
     modalClose = (e) => {
         e.preventDefault();
-        this.setState({ isModalOpen: false });
+        this.setState({ isLoading: true, isModalOpen: false });
+        this.refreshEntryList();
+
     }
 
     navChange = (event) => {

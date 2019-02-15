@@ -3,7 +3,7 @@ import MemorizStore from "../../../services/helix/helixMemorizStore";
 import StunboxService from "../../../services/stunbox/stunboxService";
 import MemEditor from "../components/memEditorHtml";
 import Formatter from "../../../services/helix/helixFormatter";
-import { Modal, Container, Divider, Input, Label, Icon } from 'semantic-ui-react';
+import { Modal, Container, Divider, Input, Label, Icon, Button, Grid } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 const inlineStyle = {
@@ -28,7 +28,6 @@ class memEntryModal extends React.Component {
 
     handleModalClose = (e) => {
         e.preventDefault();
-        this.props.onClose(e);
         if (this.state.isUpdated) {
             if (this.state.isCreation) {
 
@@ -41,13 +40,16 @@ class memEntryModal extends React.Component {
 
                 this.setState({ entry: entryToCreate });
 
-                MemorizStore.newEntry(this.state.entry);
+                MemorizStore.newEntry(this.state.entry).then(this.closeProperly(e));
             }
             else {
-                MemorizStore.updateEntry(this.state.entry);
+                MemorizStore.updateEntry(this.state.entry).then(this.closeProperly(e));
             }
-        }
+        } else { this.closeProperly(e); }
+    }
 
+    closeProperly(e) {
+        this.props.onClose(e);
     }
 
     onEntryChange = (e, data) => {
@@ -84,8 +86,25 @@ class memEntryModal extends React.Component {
                         <Divider />
                         <MemEditor value={this.state.entry.content} onChange={this.handleEditorChange} />
                         <Divider />
-                        <Label size='mini'><Icon name='clock' />{Formatter.dateToText(this.state.entry.created_on, "créé le ")}</Label>
-                        <Label size='mini'><Icon name='keyboard' />{this.state.entry.uuid}</Label>
+
+                        <Grid>
+                            <Grid.Row>
+                                <Grid.Column floated='left' width={4}>
+                                    <Button.Group>
+                                        <Button icon>
+                                            <Icon name='copy' />
+                                        </Button>
+                                        <Button icon>
+                                            <Icon name='trash' />
+                                        </Button>
+                                    </Button.Group>
+                                </Grid.Column>
+                                <Grid.Column floated='right' textAlign='right' width={12}>
+                                    <Label size='mini'><Icon name='clock' />{Formatter.dateToText(this.state.entry.created_on, "créé le ")}</Label><br />
+                                    <Label size='mini'><Icon name='keyboard' />{this.state.entry.uuid}</Label>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
                     </Container>
                 </Modal.Content>
 
