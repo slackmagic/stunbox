@@ -49,6 +49,7 @@ class memEntryModal extends React.Component {
     }
 
     closeProperly(e) {
+        this.setState({ isUpdated: true });
         this.props.onClose(e);
     }
 

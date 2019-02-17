@@ -53,14 +53,6 @@ class MemorizEntryCardList extends React.Component {
 
     }
 
-    handleDeleteClick = (e, data, value) => {
-        e.preventDefault();
-        console.log("DELETE THIS :", data.value);
-
-        this.props.onChange(data.item);
-
-    }
-
     componentDidMount() {
         this.setState({ entryList: this.props.entryList });
 
@@ -109,9 +101,7 @@ class MemorizEntryCardList extends React.Component {
                     <Card item={entry} onClick={this.handleEntryClick} key={entry.uuid} value="update" color="yellow" style={{ background: "#ffffaa" }}>
                         <Card.Content>
                             <Card.Header>
-
                                 <GetCardContent entry={entry} />
-
                             </Card.Header>
                         </Card.Content>
                         <Card.Content extra textAlign='right'>
