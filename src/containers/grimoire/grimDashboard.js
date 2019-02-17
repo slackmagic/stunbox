@@ -39,7 +39,6 @@ class GrimoireDashboard extends React.Component {
                                     </Dimmer>
                                     <br />
                                     <GrimCardList collections={this.state.collections} typeList={this.state.typeList} />
-
                                 </Dimmer.Dimmable>
                             </Grid.Column>
                             <Grid.Column computer={1} tablet={1} only='computer tablet' />

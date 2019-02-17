@@ -4,19 +4,6 @@ import Formatter from "../../../services/helix/helixFormatter";
 import '../../../css/memCardList.css';
 import StackGrid, { transitions, easings } from "react-stack-grid";
 
-const itemModifier = [
-    'pattern1',
-    'pattern2',
-    'pattern3',
-    'gray',
-    'gray-light',
-    'gray-dark',
-    'yellow',
-    'pink',
-    'purple',
-];
-
-
 function GetCardContent(props) {
     let truncatedText = "";
     if (props.entry.title === "") {
@@ -26,7 +13,9 @@ function GetCardContent(props) {
     }
 
     //Adapt the font size
-    if (truncatedText.length > 20) {
+    if (truncatedText.length > 50) {
+        truncatedText = <h5 > {truncatedText}</ h5>;
+    } else if (truncatedText.length > 20) {
         truncatedText = <h4 > {truncatedText}</ h4>;
     } else if (truncatedText.length > 15) {
         truncatedText = <h3 >{truncatedText}</h3>;
@@ -117,7 +106,7 @@ class MemorizEntryCardList extends React.Component {
 
 
                 {this.props.entryList.map(entry =>
-                    <Card item={entry} onClick={this.handleEntryClick} key={entry.uuid} value="update" color="yellow">
+                    <Card item={entry} onClick={this.handleEntryClick} key={entry.uuid} value="update" color="yellow" style={{ background: "#ffffaa" }}>
                         <Card.Content>
                             <Card.Header>
 

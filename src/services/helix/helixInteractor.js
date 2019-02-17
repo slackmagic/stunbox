@@ -132,6 +132,28 @@ const HelixInteractor = {
             });
     },
 
+    deleteWithAuth(url, json, callback) {
+        this.init();
+        return fetch(url,
+            {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': API_ACCESS_TOKEN,
+                    'Authorization': 'Bearer ' + ID_ACCESS_TOKEN
+                },
+                body: json
+            }
+        )
+            //No JSON extraction on DELETE route.
+            .then(response => response)
+            .then(data => { return data; })
+            .catch(error => {
+                console.log(error);
+                throw new Error(this.errorGenerator(error));
+            });
+    },
+
     errorGenerator(error) {
         return '[Erreur HELIX]: ' + error.message;
     }

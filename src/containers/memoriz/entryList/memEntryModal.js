@@ -77,6 +77,11 @@ class memEntryModal extends React.Component {
         return nextProps.item !== undefined;
     }
 
+    handleDeleteClick = (e) => {
+        e.preventDefault();
+        MemorizStore.deleteEntry(this.state.entry).then(this.closeProperly(e));
+    }
+
     render() {
         return (
             <Modal style={inlineStyle.modal} open={this.props.open} onClose={this.handleModalClose}>
@@ -94,14 +99,13 @@ class memEntryModal extends React.Component {
                                         <Button icon>
                                             <Icon name='copy' />
                                         </Button>
-                                        <Button icon>
+                                        <Button icon onClick={this.handleDeleteClick}>
                                             <Icon name='trash' />
                                         </Button>
                                     </Button.Group>
                                 </Grid.Column>
                                 <Grid.Column floated='right' textAlign='right' width={12}>
-                                    <Label size='mini'><Icon name='clock' />{Formatter.dateToText(this.state.entry.created_on, "créé le ")}</Label><br />
-                                    <Label size='mini'><Icon name='keyboard' />{this.state.entry.uuid}</Label>
+                                    <Label size='mini'><Icon name='clock' />{Formatter.dateToText(this.state.entry.created_on, "créé le ")}</Label>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
