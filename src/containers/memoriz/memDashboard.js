@@ -2,6 +2,7 @@ import React from 'react';
 import MemorizStore from "../../services/helix/helixMemorizStore";
 import MemCardList from "./entryList/memEntryCardList";
 import MemEntryModal from "./entryList/memEntryModal";
+import MemBoardModal from "./entryList/memBoardModal";
 import MemNav from './components/memNav';
 import MemBar from './entryList/memBar';
 import MemHeader from "./components/memHeader";
@@ -11,8 +12,10 @@ class MemorizDashboard extends React.Component {
 
     state = {
         isLoading: true,
-        isModalOpen: false,
+        isEntryModalOpen: false,
+        isBoardModalOpen: false,
         activeEntry: undefined,
+        activeBoard: {},
         entryList: [],
         labelList: [],
     }
@@ -28,12 +31,12 @@ class MemorizDashboard extends React.Component {
 
     cardChange = (data) => {
         if (data !== undefined)
-            this.setState({ activeEntry: data, isModalOpen: true });
+            this.setState({ activeEntry: data, isEntryModalOpen: true });
     }
 
     modalClose = (e) => {
         e.preventDefault();
-        this.setState({ isLoading: true, isModalOpen: false });
+        this.setState({ isLoading: true, isEntryModalOpen: false, isBoardModalOpen: false });
         this.refreshEntryList();
 
     }
@@ -41,7 +44,7 @@ class MemorizDashboard extends React.Component {
     navChange = (event) => {
         switch (event.type) {
             case 'new':
-                this.setState({ activeEntry: { content: '' }, isModalOpen: true });
+                this.setState({ activeEntry: { content: '' }, isEntryModalOpen: true });
                 break;
             case 'search':
                 break;
@@ -52,12 +55,30 @@ class MemorizDashboard extends React.Component {
         }
     }
 
+    boardChange = (board) => {
+        switch (board.uuid) {
+            case 'new':
+                this.setState({ isBoardModalOpen: true });
+                break;
+            default:
+
+                if (board.uuid != "main") {
+                    MemorizStore.entryListByBoard(board.uuid)
+                        .then(data => this.setState({ entryList: data, isLoading: false }));
+                } else {
+                    this.refreshEntryList();
+                }
+
+                break;
+        }
+    }
+
     render() {
 
         return (
             <div>
                 <Container fluid>
-                    <MemNav />
+                    <MemNav board={{ uuid: 'main', title: 'Principal' }} onChange={this.boardChange} />
                     <MemHeader />
                     <Grid>
                         <Grid.Row>
@@ -69,7 +90,8 @@ class MemorizDashboard extends React.Component {
                                         <Loader size='huge' inverted>Chargement</Loader>
                                     </Dimmer>
                                     <br />
-                                    <MemEntryModal item={this.state.activeEntry} open={this.state.isModalOpen} onClose={this.modalClose} />
+                                    <MemBoardModal item={this.state.activeBoard} open={this.state.isBoardModalOpen} onClose={this.modalClose} />
+                                    <MemEntryModal item={this.state.activeEntry} open={this.state.isEntryModalOpen} onClose={this.modalClose} />
                                     <MemCardList entryList={this.state.entryList} labelList={this.state.labelList} onChange={this.cardChange} />
                                 </Dimmer.Dimmable>
                             </Grid.Column>

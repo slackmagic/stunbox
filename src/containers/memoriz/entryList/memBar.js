@@ -24,8 +24,6 @@ class MemBar extends React.Component {
 
     handleAddNewClick = (e) => {
         e.preventDefault();
-        //this.context.router.history.push(`/grimoire/item/new/` + this.props.collection);
-
         this.event.type = 'new';
         this.event.value = undefined;
         this.props.onChange(this.event);
@@ -33,7 +31,6 @@ class MemBar extends React.Component {
 
     handleSearch = (e, data) => {
         e.preventDefault();
-        //this.context.router.history.push(`/grimoire/item/new/` + this.props.collection);
 
         this.event.type = 'search';
         this.event.value = this.state.namefilter;
